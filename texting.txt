@@ -5,13 +5,6 @@ zaid sabbar ... ('_') ok
 sherin ... ok
 manar...ok
 shahlaa zoher..ok
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-shahlaa zoher..ok
-<<<<<<< HEAD
->>>>>>> 1187cc34863cce29214c3a8d189f48adf2365739
-=======
 zainab ...ok....
 >>>>>>> 44df226fb34a35941b417e67b1691d2c3ccb8d64
 =======
