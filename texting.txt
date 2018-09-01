@@ -6,8 +6,5 @@ sherin ... ok
 manar...ok
 shahlaa zoher..ok
 zainab ...ok....
-<<<<<<< HEAD
 code for iraq
-=======
-Rand... Ok
->>>>>>> c9c5ec1b237bc55e7cc60e20a1b6a57f348c3649
+c4i
