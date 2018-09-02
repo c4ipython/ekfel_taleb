@@ -18,4 +18,6 @@ from django.urls import path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('',view.xx,name='blank'),
+    path('sign_in/',view.sign,name='log'),
 ]
