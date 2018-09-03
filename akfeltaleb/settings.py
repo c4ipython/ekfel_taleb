@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'Sponsors',
     'accounts',
     'Students',
+    'home',
+    'events',
 ]
 
 MIDDLEWARE = [
