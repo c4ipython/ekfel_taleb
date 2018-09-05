@@ -19,9 +19,11 @@ from Sponsors import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path ('',include('home.urls')),
-    path('',include('Students.urls')),
-    path('',include('Sponsors.url')),
+
+    path ('home/',include('home.urls')),
+    path('students/',include('Students.urls')),
+    path('events/',include('events.urls')),
+    path('sponsor',include('Sponsors.url')),
 
 
 ]

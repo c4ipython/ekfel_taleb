@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>add</title>
+</head>
+<body>
+<form method="post">
+  {% csrf_token %}
+<input type="text" placeholder="ادخل عنوان النشاط" name="title" required>
+<input type="text" placeholder="ادخل تفاصيل النشاط" name="details" required>
+<input type="text" placeholder="ادخل مكان النشاط" name="address" required>
+<input type="text" placeholder="مكان الجهة المنفذه"  name="source" required>
+<input type="date" placeholder="تاريخ النشاط" name="dates" required>
+<input type="submit" value="اضافة">
+</form>
+</body>
+</html>
