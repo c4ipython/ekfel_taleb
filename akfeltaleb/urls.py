@@ -23,7 +23,7 @@ urlpatterns = [
     path ('home/',include('home.urls')),
     path('students/',include('Students.urls')),
     path('events/',include('events.urls')),
-    path('sponsor',include('Sponsors.url')),
+    path('sponsor/',include('Sponsors.url')),
 
 
 
