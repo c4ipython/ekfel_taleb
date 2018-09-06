@@ -31,7 +31,7 @@ def sponserdelete(request,id):
 
 @requires_csrf_token
 def displayKafalat(request):
-    k = Req_st.objects.filter(sponser='')
+    k = Req_st.objects.filter(sponser='',req_spon='')
     return render(request, 'kafalat.html',{'k':k})
 
 
