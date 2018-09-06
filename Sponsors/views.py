@@ -24,3 +24,19 @@ def sponserdelete(request,id):
     else:
         d = Req_st.objects.get(id=id)
     return render(request, 'req.html')
+
+
+
+
+
+@requires_csrf_token
+def displayKafalat(request):
+    k = Req_st.objects.filter(sponser='')
+    return render(request, 'kafalat.html',{'k':k})
+
+
+@requires_csrf_token
+def displayMyKafalat(request):
+    u = request.user
+    m = Req_st.objects.filter(sponser=u)
+    return render(request,'myKafalat.html',{'m':m})
