@@ -1,17 +1,15 @@
-from django.shortcuts import render
-from django.core.mail import send_mail, BadHeaderError, EmailMessage
-from django.http import HttpResponse
-from django.shortcuts import render, redirect
-from django.template.loader import get_template
 
+from django.core.mail import send_mail, BadHeaderError
+from django.http import HttpResponse
+from django.shortcuts import render
 from home.forms import ContactForm
 from django.views.decorators.csrf import requires_csrf_token
 
-
+@requires_csrf_token
 def home(request):
     return render(request, 'home.html')
 
-
+@requires_csrf_token
 def contact(request):
     if request.method == 'GET':
         form = ContactForm ()
@@ -30,6 +28,14 @@ def contact(request):
 
     return render (request, "contact.html", {'form': form })
 
-
+@requires_csrf_token
 def about(request):
     return render(request, 'about.html')
+
+@requires_csrf_token
+def c4i(request):
+    return render(request, 'c4i.html')
+
+@requires_csrf_token
+def devteam(request):
+    return render(request, 'devteam.html')
