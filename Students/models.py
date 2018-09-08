@@ -9,8 +9,20 @@ class Req_st(models.Model):
     sponser=models.CharField(max_length=200,blank=True)
     approved=models.BooleanField(default=False)
     req_spon=models.CharField(max_length=250,blank=True)
-
-
+    disable=models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
+
+class Authentication (models.Model):
+    types=[
+        ('manger','manger'),
+        ('student', 'student'),
+        ('sponser', 'sponser'),
+
+
+    ]
+
+    user_type=models.CharField(max_length=200,choices=types)
+    def __str__(self):
+        return self.user.username
