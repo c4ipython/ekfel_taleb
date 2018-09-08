@@ -13,16 +13,3 @@ class Req_st(models.Model):
 
     def __str__(self):
         return self.title
-
-class Authentication (models.Model):
-    types=[
-        ('manger','manger'),
-        ('student', 'student'),
-        ('sponser', 'sponser'),
-
-
-    ]
-
-    user_type=models.CharField(max_length=200,choices=types)
-    def __str__(self):
-        return self.user.username

@@ -5,4 +5,3 @@ from Students import models
 # Register your models here.
 
 admin.site.register(models.Req_st)
-admin.site.register(models.Authentication)
