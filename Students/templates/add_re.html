@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>add_Request</title>
+</head>
+<body>
+  {% block body %}
+<form method="POST">
+  {% csrf_token %}
+<input type="text" placeholder="عنوان الطلب" name="title" required>
+<input type="text" placeholder="تفاصيل الطلب" name="info" required>
+<input type="submit" value="نشر الطلب">
+</form>
+{% endblock %}
+</body>
+</html>
