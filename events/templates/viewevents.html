@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>add</title>
+</head>
+<body>
+  <h1>الانشطة القادمة</h1>
+{% for i in list %}
+<div style="border: solid 3px ; width: 200px;display: inline-block; ">
+  <h2>{{i.id|safe}}</h2><br>
+<h2>{{i.title|safe}}</h2><br>
+<h2>{{i.details|safe}}</h2><br>
+<h2>{{i.address|safe}}</h2><br>
+<h2>{{i.source|safe}}</h2><br>
+<br>
+<!--- زر الحذف من صلاحية المدير فقط -->
+<a href="{{i.id|safe}}">حذف </a>
+</div>
+{% endfor %}
+<br><br><br><br><br>
+<h1>الانشطة السابقة</h1>
+{% for i in missed %}
+<div style="border: solid 3px ; width: 200px;display: inline-block; ">
+<h2>{{i.title|safe}}</h2>
+<h2>{{i.details|safe}}</h2>
+<h2>{{i.address|safe}}</h2>
+<h2>{{i.source|safe}}</h2>
+
+</div>
+{% endfor %}
+</body>
+</html>
