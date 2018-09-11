@@ -33,12 +33,61 @@ def add_req(request):
     # z=auths(request)
     # if z==1:
     #     ss=''
+    a=3
     if request.method=='POST':
         title=request.POST.get('title')
         info=request.POST.get('info')
-        forms=Req_st(title=title,info=info,sender=request.user)
-        forms.save()
+        reqs=Req_st(title=title,info=info,sender=request.user)
+        if reqs==a:
+            
+
+        reqs.save()
+
         return HttpResponse('ok')
+
+
+
+
     else:
         redirect('Index.html')
     return render(request,"add_re.html")
+
+
+
+# @requires_csrf_token
+# def view_req(request):
+#     waited=''
+#     approved=''
+#     if request.user_authenticated:
+#         z=auths(request)
+#         if z==1:
+#             waited=Req_st.objects.filter(approved=False,sender=request.user)
+#             approved=Req_st.objects.filter(approved=True,sender=request.user)
+#         elif z==0:
+#            waited=Req_st.objects.filter(approved=False)
+#             approved=Req_st.objects.filter(approved=True)
+#         return render(request,'view_re.html',{'approved':approved,'waited':waited,'z':z})
+#     else:
+#         return redirect('login')
+#
+#
+#
+#
+# def accept_req(request,id):
+#     z=auths(request):
+#     if z==0:
+#         m=Req_st.objects.get(id=id)
+#         for i in m:
+#             i.approved=True
+#         m.save()
+#     return redirect('veiw_re')
+#
+#
+# def disable_req(request,id):
+#     z=auths(request):
+#     if z==1:
+#         a=Req_st.objects.filter(sender=request.user,id=id)
+#         for i in a:
+#             i.disable=True
+#         a.save()
+#     return redirect ('view_re')
