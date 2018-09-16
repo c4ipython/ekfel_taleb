@@ -14,6 +14,8 @@ def sponserRequest(request,id):
         e = Req_st.objects.get(id=id)
     return render(request, 'req.html')
 
+
+
 @requires_csrf_token
 def sponserdelete(request,id):
     if request.method == 'POST':
@@ -23,7 +25,7 @@ def sponserdelete(request,id):
         return HttpResponse('donneeee')
     else:
         d = Req_st.objects.get(id=id)
-    return render(request, 'req.html')
+    return render(request, 'del.html')
 
 
 
@@ -40,3 +42,35 @@ def displayMyKafalat(request):
     u = request.user
     m = Req_st.objects.filter(sponser=u)
     return render(request,'myKafalat.html',{'m':m})
+
+
+
+
+
+@requires_csrf_token
+def reqAdmin(request,id):
+    a = Req_st.objects.get(id=id)
+    if request.method == "POST":
+        if 'a' in request.POST:
+                a.sponser = a.req_spon
+                a.req_spon = ""
+                a.save()
+                return HttpResponse('donneeee a')
+        if 'b' in request.POST:
+                a.req_spon = ""
+                a.save()
+                return HttpResponse('donneeee b')
+
+    return render (request, 'reqAdmin.html')
+
+
+
+
+@requires_csrf_token
+def delAdmin(request,id):
+    if request.method == 'POST':
+        da = Req_st.objects.get(id=id)
+        da.sponser = ""
+        da.save()
+        return HttpResponse('donneeee da')
+    return render(request, 'delAdmin.html')
