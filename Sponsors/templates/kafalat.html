@@ -2,41 +2,30 @@
 <html>
 
 <head>
+<style>
 
+div{
 
+  border-style: solid;
+  border-width: 1px;
+  width : 10%;
+}
+</style>
 </head>
 
 <body>
-        <table class="table">
-            <thead>
-                <tr>
-                   <th scope="col" class="table-success">id</th>
-                    <th scope="col" class="table-success">title</th>
-                    <th scope="col" class="table-success">info</th>
-                    <th scope="col" class="table-success">sender</th>
-                    <th scope="col" class="table-success">date_up</th>
-                    <th scope="col" class="table-success">sponser</th>
-                    <th scope="col" class="table-success">approved</th>
-                    <th scope="col" class="table-success">req_spon</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for i in k %}
-                <tr>
-                    <th scope="row">{{ i.id }}</th>
-                    <!-- <td>{{ i.name }}</td> -->
-                    <td><a href="{{i.id}}">{{ i.title }}</a> </td>
-                    <td>{{ i.info }}</td>
-                    <td>{{ i.sender }}</td>
-                    <td>{{ i.date_up }}</td>
-                    <td>{{ i.sponser }}</td>
-                    <td>{{ i.approved }}</td>
-                    <td>{{ i.req_spon }}</td>
-                </tr>
 
+                {% for i in k %}
+    <div>
+                    <h3 scope="row">{{ i.id | safe }}</h3>
+                    <!-- <td>{{ i.name }}</td> -->
+                    <h3><a href="{{i.id}}">{{ i.title | safe }}</a> </h3>
+                    <h3>{{ i.info | safe }}</h3>
+                    <h3>{{ i.approved | safe }}</h3>
+
+    </div>
                 {% endfor %}
-            </tbody>
-        </table>
+
 
 </body>
 
