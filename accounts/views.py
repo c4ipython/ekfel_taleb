@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Sponsor
+from .models import Students
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.admin import User
 from django.views.decorators.csrf import requires_csrf_token
@@ -47,3 +48,29 @@ def logins(request):
 
 def logouts(request):
     logout(request)
+
+
+@requires_csrf_token
+def signup_student(request):
+    if request.method == 'POST':
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+        fullName = request.POST.get("fullName")
+        age = request.POST.get("age")
+        birthDate = request.POST.get("birthDate")
+        governorate = request.POST.get("governorate")
+        stage = request.POST.get("stage")
+        phone = request.POST.get("phone")
+        img = request.POST.get("img")
+
+        try:
+            form1 = User.objects.create_user(username=username, password=password)
+            form1.save()
+            form2 = Students(username=username, full_name=fullName, age=age, birth_date=birthDate, city=governorate, stage=stage, number=phone, img=img)
+            form2.save()
+            user = authenticate(request, username=username, password=password)
+            login(request, user)
+            return render(request, "base.html")
+        except:
+            return render(request, 'signup_student.html', {'msg': 'This username has already been used'})
+    return render(request, 'signup_student.html')

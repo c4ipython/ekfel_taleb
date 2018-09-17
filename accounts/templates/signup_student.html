@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{{msg}}
+<form action="" method="POST">
+    {% csrf_token %}
+    <input type="text" placeholder="username" name="username">
+    <input type="password" placeholder="password" name="password">
+    <input type="text" placeholder="fullName" name="fullName">
+    <input type="text" placeholder="age" name="age">
+    <input type="text" placeholder="birthDate" name="birthDate">
+    <input type="text" placeholder="governorate" name="governorate">
+    <input type="text" placeholder="stage" name="stage">
+    <input type="text" placeholder="phone" name="phone">
+    <input type="file" placeholder="img" name="img">
+    <input type="submit" value="sign up">
+</form>
+</body>
+</html>

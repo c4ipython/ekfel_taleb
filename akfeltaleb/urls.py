@@ -15,10 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from accounts import urls as aco
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-
+    path('account/', include(aco)),
     path ('home/',include('home.urls')),
     path('students/',include('Students.urls')),
     path('events/',include('events.urls')),
