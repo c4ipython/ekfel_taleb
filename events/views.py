@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Evnts
 from django.http import HttpResponse
 from datetime import date,timedelta
@@ -35,7 +35,29 @@ def deleted(request,id):
         idd = Evnts.objects.get(id=id)
         idd.disabled= True
         idd.save()
-        return HttpResponse('deleted')
+        return redirect("viewEvents")
     else:
         idd = Evnts.objects.get(id=id)
     return render(request, 'dltevent.html',)
+
+
+
+@requires_csrf_token
+def editing(request,id):
+    idd = Evnts.objects.get(id=id)
+    if request.method == 'POST':
+        title = request.POST.get("title")
+        details = request.POST.get("details")
+        address=request.POST.get("address")
+        source=request.POST.get("source")
+        dates=request.POST.get("dates")
+        idd.title = title
+        idd.details = details
+        idd.address = address
+        idd.source = source
+        idd.dates = dates
+        idd.save()
+        return redirect("viewEvents")
+    else:
+        idd = Evnts.objects.get(id=id)
+    return render(request, 'editEvents.html',{'form': idd})

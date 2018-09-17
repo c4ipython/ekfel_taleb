@@ -4,28 +4,38 @@
     <meta charset="UTF-8">
     <title>add</title>
 </head>
-<body>
+<body dir="rtl">
+  <center>
+    <h1><a href="{% url 'add_event' %}"> اضافة مناسبة </a></h1>
+   </center>
   <h1>الانشطة القادمة</h1>
 {% for i in list %}
-<div style="border: solid 3px ; width: 200px;display: inline-block; ">
-  <h2>{{i.id|safe}}</h2><br>
-<h2>{{i.title|safe}}</h2><br>
-<h2>{{i.details|safe}}</h2><br>
-<h2>{{i.address|safe}}</h2><br>
-<h2>{{i.source|safe}}</h2><br>
+<div style="border: dashed 2px green; width: 400px;display: inline-block; background-color: lightgreen;" dir="rtl">
+
+<h2>عنوان المناسبة: {{i.title|safe}}</h2>
+<h2>تفاصيل المناسبة: {{i.details|safe}}</h2>
+<h2>موقع المناسبة: {{i.address|safe}}</h2>
+<h2>الجهة المنفذة: {{i.source|safe}}</h2>
+<h2>تاريخ المناسبة: {{i.dates|safe}}</h2>
 <br>
-<!--- زر الحذف من صلاحية المدير فقط -->
-<a href="{{i.id|safe}}">حذف </a>
+<!--- زر الحذف من صلاحية المدير فقط وكذلك التعديل-->
+<center>
+<a href="del/{{i.id|safe}}">حذف </a> &nbsp;
+<a href="edit/{{i.id|safe}}">تعديل </a>
+<br> &nbsp;
+</center>
 </div>
 {% endfor %}
 <br><br><br><br><br>
+<!-- الانشطة السابقة تظهر للمدير فقط -->
 <h1>الانشطة السابقة</h1>
 {% for i in missed %}
-<div style="border: solid 3px ; width: 200px;display: inline-block; ">
-<h2>{{i.title|safe}}</h2>
-<h2>{{i.details|safe}}</h2>
-<h2>{{i.address|safe}}</h2>
-<h2>{{i.source|safe}}</h2>
+<div style="border: solid 2px ; width: 400px;display: inline-block; background-color: red;" dir="rtl">
+  <h2>عنوان المناسبة: {{i.title|safe}}</h2>
+  <h2>تفاصيل المناسبة: {{i.details|safe}}</h2>
+  <h2>موقع المناسبة: {{i.address|safe}}</h2>
+  <h2>الجهة المنفذة: {{i.source|safe}}</h2>
+  <h2>تاريخ المناسبة: {{i.dates|safe}}</h2>
 
 </div>
 {% endfor %}

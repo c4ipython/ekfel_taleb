@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>add</title>
+</head>
+<body>
+
+<form method="post">
+  {% csrf_token %}
+<input type="text" placeholder="ادخل عنوان النشاط" name="title" required value="{{form.title}}" >
+<input type="text" placeholder="ادخل تفاصيل النشاط" name="details" required value="{{form.details}}">
+<input type="text" placeholder="ادخل مكان النشاط" name="address" required value="{{form.address}}">
+<input type="text" placeholder="مكان الجهة المنفذه"  name="source" required value="{{form.source}}">
+<input type="date" placeholder="تاريخ النشاط" name="dates" required value="{{form.dates}}">
+<input type="submit" value="تحديث">
+</form>
+</body>
+</html>
