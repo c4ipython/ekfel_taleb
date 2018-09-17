@@ -25,7 +25,6 @@ class Sponsor(models.Model):
         return self.full_name
 
 
-
 class Students(models.Model):
     username = models.CharField(max_length=100, blank=True)
     full_name = models.CharField(max_length=100, blank=False)
