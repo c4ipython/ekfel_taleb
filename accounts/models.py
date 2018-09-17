@@ -24,3 +24,23 @@ class Sponsor(models.Model):
 
         return self.full_name
 
+
+
+class Students(models.Model):
+    username = models.CharField(max_length=100, blank=True)
+    full_name = models.CharField(max_length=100, blank=False)
+    age = models.IntegerField(blank=True)
+    birth_date = models.DateField(null=True)
+    number = models.CharField(max_length=12, blank=False)
+    city = models.CharField(max_length=50, blank=True)
+    img = models.FileField(upload_to='docs/', blank=False)
+    stage = models.CharField(max_length=50, blank=True)
+    approved = models.BooleanField(default=False)
+    up_date = models.DateField(auto_now_add=True)
+    type_user = models.CharField(max_length=50, default='student')
+    disabled = models.CharField(max_length=50, default=False)
+
+    def __str__(self):
+
+        return self.full_name
+
