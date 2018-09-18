@@ -6,7 +6,7 @@
 </head>
 <body>
   {% block body %}
-  {% for i in  m  %}
+  {% for i in m  %}
 <form method="POST">
   {% csrf_token %}
 <input type="text"  value= {{i.tilte | safe }} name="title" >

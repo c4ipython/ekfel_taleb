@@ -95,10 +95,10 @@ def disable_req(request,id):
 @requires_csrf_token
 def edit_req(request,id):
     if request.method=='POST':
-        m=Req_st.objects.filter(id=id)
-        m.title=request.POST.get('title')
-        m.info=request.POST.get('info')
-        m.save()
-    else:
-        return redirect('index')
-    return render(request,'edit_re.html',{'m':m})        
+         m=Req_st.objects.get(id=id,sender=request.user)
+         m.title=request.POST.get('title')
+         m.info=request.POST.get('info')
+         m.save()
+         return redirect('view_rq')
+
+    return render(request,'edit_re.html',{'m':m})
