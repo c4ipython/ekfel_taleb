@@ -6,14 +6,12 @@
 </head>
 <body>
   {% block body %}
-  {% for i in m  %}
 <form method="POST">
   {% csrf_token %}
-<input type="text"  value= {{i.tilte | safe }} name="title" >
-<input type="text"  value= {{i.info | safe }} name="info" >
+<input type="text"   name="title" required  value= "{{m.title}}" >
+<input type="text"   name="info"   required value= "{{m.info}}" >
 <input type="submit" value="update">
 </form>
-{% endfor %}
 {% endblock %}
 </body>
 </html>

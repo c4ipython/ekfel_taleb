@@ -21,8 +21,9 @@
       <p class="card-text">{{i.info}}</p>
       <a href="{{i.id  | safe}}" class="card-link">مواقفة</a> <br>
       <br>
+      <a href="edit/{{i.id  | safe}}" class="card-link">edit</a> <br>
 
-      <button onclick = "location.href = '{%  url  'edit_re' i.id  %}' ">  تعديل</button>
+
 
     </div>
   </div>
