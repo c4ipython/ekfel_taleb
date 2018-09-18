@@ -19,7 +19,11 @@
     <div class="card-body">
 
       <p class="card-text">{{i.info}}</p>
-      <a href="{{i.id}}" class="card-link">مواقفة</a>
+      <a href="{{i.id  | safe}}" class="card-link">مواقفة</a> <br>
+      <br>
+
+      <a href="{{i.id | safe}}" class="card-link">تعديل </a>
+
     </div>
   </div>
   {% endfor %}

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>edit</title>
+</head>
+<body>
+  {% block body %}
+  {% for i in  m  %}
+<form method="POST">
+  {% csrf_token %}
+<input type="text"  value= {{i.tilte | safe }} name="title" >
+<input type="text"  value= {{i.info | safe }} name="info" >
+<input type="submit" value="update">
+</form>
+{% endfor %}
+{% endblock %}
+</body>
+</html>

@@ -71,7 +71,7 @@ def view_req(request):
 
 
 
-
+@requires_csrf_token
 def accept_req(request,id):
     # z=auths(request):
     # if z==0:
@@ -80,7 +80,7 @@ def accept_req(request,id):
     d.save()
     return redirect('view_rq')
 
-#
+@requires_csrf_token
 def disable_req(request,id):
     # z=auths(request):
     # if z==1:
@@ -89,3 +89,16 @@ def disable_req(request,id):
     a.disable=True
     a.save()
     return redirect ('view_rq')
+
+
+
+@requires_csrf_token
+def edit_req(request,id):
+    if request.method=='POST':
+        m=Req_st.objects.filter(id=id)
+        m.title=request.POST.get('title')
+        m.info=request.POST.get('info')
+        m.save()
+    else:
+        return redirect('index')
+    return render(request,'edit_re.html',{'m':m})        
