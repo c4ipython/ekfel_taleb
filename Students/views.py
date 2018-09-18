@@ -59,30 +59,33 @@ def view_req(request):
     waited=Req_st.objects.filter(approved=False,sender=request.user)
     approved=Req_st.objects.filter(approved=True,sender=request.user)
         # elif z==0:
-    # waited=Req_st.objects.filter(approved=False)
-    # approved=Req_st.objects.filter(approved=True)
+    waited=Req_st.objects.filter(approved=False)
+    approved=Req_st.objects.filter(approved=True)
     return render(request,'view_rq.html',{'approved':approved,'waited':waited})
     # else:
     #     return redirect('login')
 
 
 
+
+
+
+
+
+def accept_req(request,id):
+    # z=auths(request):
+    # if z==0:
+    d=Req_st.objects.get(id=id)
+    d.approved=True
+    d.save()
+    return redirect('view_rq')
+
 #
-# def accept_req(request,id):
-#     z=auths(request):
-#     if z==0:
-#         m=Req_st.objects.get(id=id)
-#         for i in m:
-#             i.approved=True
-#         m.save()
-#     return redirect('veiw_re')
-#
-#
-# def disable_req(request,id):
-#     z=auths(request):
-#     if z==1:
-#         a=Req_st.objects.filter(sender=request.user,id=id)
-#         for i in a:
-#             i.disable=True
-#         a.save()
-#     return redirect ('view_re')
+def disable_req(request,id):
+    # z=auths(request):
+    # if z==1:
+    a=Req_st.objects.filter(sender=request.user,id=id)
+
+    a.disable=True
+    a.save()
+    return redirect ('view_rq')
