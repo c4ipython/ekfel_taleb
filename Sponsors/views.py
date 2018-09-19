@@ -6,10 +6,15 @@ from django.views.decorators.csrf import requires_csrf_token
 @requires_csrf_token
 def sponserRequest(request,id):
     if request.method == 'POST':
-        e = Req_st.objects.get(id=id)
-        e.req_spon = request.user.username
-        e.save()
-        return HttpResponse('donneeee')
+        a = Req_st.objects.filter(req_spon=request.user)
+        aa = len(a)
+        if aa < 3:
+            e = Req_st.objects.get(id=id)
+            e.req_spon = request.user.username
+            e.save()
+            return HttpResponse('donneeee')
+        else:
+            return HttpResponse('لا يمككن طلب اكثر من ثلاث كفالات في وقت واحد, الرجاء الانتضار لحين موافقه طلبات كفالتك')
     else:
         e = Req_st.objects.get(id=id)
     return render(request, 'req.html')
