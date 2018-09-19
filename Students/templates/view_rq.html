@@ -48,7 +48,7 @@
   <div class="card-body">
 
     <p class="card-text">{{i.info}}</p>
-    <a href="{{i.id}}" class="card-link">حذف</a>
+    <a href="del/{{i.id  | safe}}" class="card-link">حذف</a>
   </div>
 </div>
 {% endfor %}

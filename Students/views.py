@@ -37,12 +37,15 @@ def add_req(request):
 
 
     if request.method=='POST':
-        title=request.POST.get('title')
-        info=request.POST.get('info')
-        reqs=Req_st(title=title,info=info,sender=request.user)
-        reqs.save()
-
-        return HttpResponse('ok')
+          x=Req_st.objects.filter(sender=request.user)
+          if len(x) < 3:
+               title=request.POST.get('title')
+               info=request.POST.get('info')
+               reqs=Req_st(title=title,info=info,sender=request.user)
+               reqs.save()
+               return HttpResponse('ok')
+          else:
+               return HttpResponse('you cant')
     else:
         redirect('Index.html')
     return render(request,"add_re.html")
@@ -82,14 +85,15 @@ def accept_req(request,id):
 
 @requires_csrf_token
 def disable_req(request,id):
+
     # z=auths(request):
     # if z==1:
-    a=Req_st.objects.filter(sender=request.user,id=id)
+         a=Req_st.objects.get(sender=request.user,id=id)
 
-    a.disable=True
-    a.save()
-    return redirect ('view_rq')
+         a.disable=True
+         a.save()
 
+         return  redirect('view_rq')
 
 
 @requires_csrf_token
