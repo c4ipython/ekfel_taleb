@@ -74,3 +74,18 @@ def signup_student(request):
         except:
             return render(request, 'signup_student.html', {'msg': 'This username has already been used'})
     return render(request, 'signup_student.html')
+
+
+def auth():
+    sponsor = Sponsor.objects.get(username=request.user)
+    student = Students.objects.get(username=request.user)
+    x = 0
+    if request.user.is_authenticated and not sponsor and not student:
+        x = 1  # admin
+    elif request.user.is_authenticated and sponsor:
+        x = 2  # sponsor
+    elif request.user.is_authenticated and student:
+        x = 3  # student
+    else:
+        x = 4  # user
+    return x
