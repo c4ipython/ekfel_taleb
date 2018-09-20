@@ -62,7 +62,7 @@ def add_req(request):
 
 @requires_csrf_token
 def view_req(request):
-    if auth(request) == 1:  # admin
+    if auth(request) == 3:  # student
         waited=''
         approved=''
         # if request.user_authenticated:
@@ -70,13 +70,15 @@ def view_req(request):
         #     if z==1:
         waited=Req_st.objects.filter(approved=False,sender=request.user)
         approved=Req_st.objects.filter(approved=True,sender=request.user)
+        return render(request,'view_rq.html',{'approved':approved,'waited':waited})
             # elif z==0:
+    elif auth(request) == 1:  # admin
         waited=Req_st.objects.filter(approved=False)
         approved=Req_st.objects.filter(approved=True)
         return render(request,'view_rq.html',{'approved':approved,'waited':waited})
         # else:
         #     return redirect('login')
-    elif auth(request) == 2 or auth(request) == 3:  # sponsor or student
+    elif auth(request) == 2:  # sponsor
         return render(request, 'base.html')
     else:
         return render(request, 'login.html')
