@@ -41,18 +41,21 @@ def signup_sponsor(request):
             img = request.POST.get("img")
             monthlySalary = request.POST.get("monthlySalary")
             try:
-                form1 = User.objects.create_user(username=username, password=password)
-                form1.save()
+                try:
+                    form1 = User.objects.create_user(username=username, password=password)
+                    form1.save()
+                except:
+                       return render(request, 'signup_sponsor.html', {'msg': 'This username has already been used'})
                 form2 = Sponsor(username=username, full_name=fullName, age=age, birth_date=birthDate, city=governorate, work=job, work_locations=jobAddress, number=phone, img=img, salary=monthlySalary)
                 form2.save()
                 user = authenticate(request, username=username, password=password)
                 login(request, user)
                 return render(request, "base.html")
             except:
-                return render(request, 'signup_sponsor.html', {'msg': 'This username has already been used'})
+                return render(request, 'signup_sponsor.html', {'msg': 'هنالك خطأ في كتابتك للمعلومات ادناه'})
         return render(request, 'signup_sponsor.html')
     else:
-        return render(request, 'login.html')
+        return render(request, 'base.html')
 
 
 @requires_csrf_token
@@ -73,8 +76,9 @@ def logins(request):
 def logouts(request):
     if not auth(request) == 4:  # not user
         logout(request)
+        return render(request, 'login.html')
     else:
-        return render(request, 'base.html')
+        return render(request, 'login.html')
 
 
 @requires_csrf_token
@@ -92,16 +96,20 @@ def signup_student(request):
             img = request.POST.get("img")
 
             try:
-                form1 = User.objects.create_user(username=username, password=password)
-                form1.save()
+                try:
+                    form1 = User.objects.create_user(username=username, password=password)
+                    form1.save()
+                except:
+                       return render(request, 'signup_student.html', {'msg': 'This username has already been used'})
+
                 form2 = Students(username=username, full_name=fullName, age=age, birth_date=birthDate, city=governorate, stage=stage, number=phone, img=img)
                 form2.save()
                 user = authenticate(request, username=username, password=password)
                 login(request, user)
                 return render(request, "base.html")
             except:
-                return render(request, 'signup_student.html', {'msg': 'This username has already been used'})
+                return render(request, 'signup_student.html', {'msg': 'هنالك خطأ في كتابتك للمعلومات ادناه'})
         return render(request, 'signup_student.html')
 
     else:
-        return render(request, 'login.html')
+        return render(request, 'base.html')
