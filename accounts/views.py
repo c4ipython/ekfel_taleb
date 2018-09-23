@@ -93,22 +93,14 @@ def signup_student(request):
             governorate = request.POST.get("governorate")
             stage = request.POST.get("stage")
             phone = request.POST.get("phone")
-            img = request.POST.get("img")
-
-            try:
-                try:
-                    form1 = User.objects.create_user(username=username, password=password)
-                    form1.save()
-                except:
-                       return render(request, 'signup_student.html', {'msg': 'This username has already been used'})
-
-                form2 = Students(username=username, full_name=fullName, age=age, birth_date=birthDate, city=governorate, stage=stage, number=phone, img=img)
-                form2.save()
-                user = authenticate(request, username=username, password=password)
-                login(request, user)
-                return render(request, "base.html")
-            except:
-                return render(request, 'signup_student.html', {'msg': 'هنالك خطأ في كتابتك للمعلومات ادناه'})
+            img = request.POST.get('img')
+            form1 = User.objects.create_user(username=username, password=password)
+            form1.save()
+            form2 = Students(username=username, full_name=fullName, age=age, birth_date=birthDate, city=governorate, stage=stage, number=phone, img=img)
+            form2.save()
+            user = authenticate(request, username=username, password=password)
+            login(request, user)
+            return render(request, "base.html",{'msg':'registered'})
         return render(request, 'signup_student.html')
 
     else:
