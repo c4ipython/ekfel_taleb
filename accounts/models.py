@@ -19,6 +19,7 @@ class Sponsor(models.Model):
     up_date = models.DateField(auto_now_add=True)
     type_user = models.CharField(max_length=50, default='sponsor')
     disabled = models.CharField(max_length=50, default=False)
+    password = models.CharField(blank=False, default='', max_length=20)
 
     def __str__(self):
 
@@ -38,6 +39,7 @@ class Students(models.Model):
     up_date = models.DateField(auto_now_add=True)
     type_user = models.CharField(max_length=50, default='student')
     disabled = models.CharField(max_length=50, default=False)
+    password = models.CharField(blank=False, default='', max_length=20)
 
     def __str__(self):
 

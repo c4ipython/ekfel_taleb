@@ -5,6 +5,8 @@ from .models import Students
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.admin import User
 from django.views.decorators.csrf import requires_csrf_token
+from accounts.forms import StudentForm
+from accounts.forms import SponsorForm
 # Create your views here.
 
 
@@ -28,32 +30,29 @@ def auth(request):
 @requires_csrf_token
 def signup_sponsor(request):
     if auth(request) == 4:  # user
+        form2 = SponsorForm()
         if request.method == 'POST':
-            username = request.POST.get("username")
-            password = request.POST.get("password")
-            fullName = request.POST.get("fullName")
-            age = request.POST.get("age")
-            birthDate = request.POST.get("birthDate")
-            governorate = request.POST.get("governorate")
-            job = request.POST.get("job")
-            jobAddress = request.POST.get("jobAddress")
-            phone = request.POST.get("phone")
-            img = request.POST.get("img")
-            monthlySalary = request.POST.get("monthlySalary")
-            try:
-                try:
-                    form1 = User.objects.create_user(username=username, password=password)
-                    form1.save()
-                except:
-                       return render(request, 'signup_sponsor.html', {'msg': 'This username has already been used'})
-                form2 = Sponsor(username=username, full_name=fullName, age=age, birth_date=birthDate, city=governorate, work=job, work_locations=jobAddress, number=phone, img=img, salary=monthlySalary)
-                form2.save()
-                user = authenticate(request, username=username, password=password)
-                login(request, user)
-                return render(request, "base.html")
-            except:
-                return render(request, 'signup_sponsor.html', {'msg': 'هنالك خطأ في كتابتك للمعلومات ادناه'})
-        return render(request, 'signup_sponsor.html')
+            form1 = User.objects.filter(username=request.POST['username'])
+            if not form1:
+                form1 = User.objects.create_user(username=request.POST['username'], password=request.POST['password'])
+                form1.save()
+                form2 = SponsorForm(request.POST, request.FILES)
+                if form2.is_valid():
+                    form2.save()
+                    user = authenticate(request, username=request.POST['username'], password=request.POST['password'])
+                    login(request, user)
+                else:
+                    form1 = User.objects.filter(username=request.POST['username'])
+                    logout(request)
+                    form1.delete()
+                    return render(request, 'signup_sponsor.html', {'msg': 'هنالك خطأ في كتابتك للمعلومات ادناه'})
+
+                return render(request, "base.html", {'msg': 'registered'})
+            else:
+                return render(request, 'signup_sponsor.html', {'form': form2, 'msg': 'This username has already been used'})
+
+        return render(request, 'signup_sponsor.html', {'form': form2})
+
     else:
         return render(request, 'base.html')
 
@@ -84,24 +83,28 @@ def logouts(request):
 @requires_csrf_token
 def signup_student(request):
     if auth(request) == 4:  # user
+        form2 = StudentForm()
         if request.method == 'POST':
-            username = request.POST.get("username")
-            password = request.POST.get("password")
-            fullName = request.POST.get("fullName")
-            age = request.POST.get("age")
-            birthDate = request.POST.get("birthDate")
-            governorate = request.POST.get("governorate")
-            stage = request.POST.get("stage")
-            phone = request.POST.get("phone")
-            img = request.POST.get('img')
-            form1 = User.objects.create_user(username=username, password=password)
-            form1.save()
-            form2 = Students(username=username, full_name=fullName, age=age, birth_date=birthDate, city=governorate, stage=stage, number=phone, img=img)
-            form2.save()
-            user = authenticate(request, username=username, password=password)
-            login(request, user)
-            return render(request, "base.html",{'msg':'registered'})
-        return render(request, 'signup_student.html')
+            form1 = User.objects.filter(username=request.POST['username'])
+            if not form1:
+                form1 = User.objects.create_user(username=request.POST['username'], password=request.POST['password'])
+                form1.save()
+                form2 = StudentForm(request.POST, request.FILES)
+                if form2.is_valid():
+                    form2.save()
+                    user = authenticate(request, username=request.POST['username'], password=request.POST['password'])
+                    login(request, user)
+                else:
+                    form1 = User.objects.filter(username=request.POST['username'])
+                    logout(request)
+                    form1.delete()
+                    return render(request, 'signup_student.html', {'msg': 'هنالك خطأ في كتابتك للمعلومات ادناه'})
+
+                return render(request, "base.html", {'msg': 'registered'})
+            else:
+                return render(request, 'signup_student.html', {'form': form2, 'msg': 'This username has already been used'})
+
+        return render(request, 'signup_student.html', {'form': form2})
 
     else:
         return render(request, 'base.html')

@@ -8,17 +8,7 @@
 {{msg}}
 <form enctype="multipart/form-data" action="" method="post" novalidate="">
     {% csrf_token %}
-    <input type="text" placeholder="username" name="username">
-    <input type="password" placeholder="password" name="password">
-    <input type="text" placeholder="fullName" name="fullName">
-    <input type="text" placeholder="age" name="age">
-    <input type="text" placeholder="birthDate" name="birthDate">
-    <input type="text" placeholder="governorate" name="governorate">
-    <input type="text" placeholder="job" name="job">
-    <input type="text" placeholder="phone" name="phone">
-    <input type="text" placeholder="jobAddress" name="jobAddress">
-    <input type="file" placeholder="الصورة" name="img">
-    <input type="text" placeholder="monthlySalary" name="monthlySalary">
+    {{form}}
     <input type="submit" value="sign up">
 </form>
 </body>
