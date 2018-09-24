@@ -108,3 +108,18 @@ def signup_student(request):
 
     else:
         return render(request, 'base.html')
+
+
+def profile(request):
+    if auth(request) == 3:  # student
+        student = Students.objects.get(username=request.user)
+        return render(request, 'profile.html', {'student': student})
+    elif auth(request) == 2:  # sponsor
+        sponsor = Sponsor.objects.get(username=request.user)
+        return render(request, 'profile.html', {'sponsor': sponsor})
+    elif auth(request) == 1:  # admin
+        return render(request, 'base.html')
+    else:
+        return render(request, 'login.html')
+
+
