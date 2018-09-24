@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% if student %}
+        your are student
+    <br><br>
+    <img src="{{ student.img.url }}" alt="" style="width:300px">
+    <br><br>
+    your username :{{student.username}}
+    <br><br>
+    your name :{{student.full_name}}
+    <br><br>
+    your age :{{student.age}}
+    <br><br>
+    your birthDate :{{student.birth_date}}
+    <br><br>
+    your number :{{student.number}}
+    <br><br>
+    your city :{{student.city}}
+    <br><br>
+    your stage :{{student.stage}}
+    <p>{{student.up_date}}</p>
+    {% endif %}
+
+    {% if sponsor %}
+        your are sponsor
+    <br><br>
+    <img src="{{ sponsor.img.url }}" alt="" style="width:300px">
+    <br><br>
+    your username :{{sponsor.username}}
+    <br><br>
+    your name :{{sponsor.full_name}}
+    <br><br>
+    your age :{{sponsor.age}}
+    <br><br>
+    your birthDate :{{sponsor.birth_date}}
+    <br><br>
+    your number :{{sponsor.number}}
+    <br><br>
+    your city :{{sponsor.city}}
+    <br><br>
+    your work :{{sponsor.work}}
+    <br><br>
+    your work_locations :{{sponsor.work_locations}}
+    <br><br>
+    your salary :{{sponsor.salary}}
+
+    <p>{{sponsor.up_date}}</p>
+    {% endif %}
+</body>
+</html>
