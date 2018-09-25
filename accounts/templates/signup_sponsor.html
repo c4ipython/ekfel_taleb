@@ -8,7 +8,7 @@
 {{msg}}
 <form enctype="multipart/form-data" action="" method="post" novalidate="">
     {% csrf_token %}
-    {{form}}
+    {{form.as_p}}
     <input type="submit" value="sign up">
 </form>
 </body>
