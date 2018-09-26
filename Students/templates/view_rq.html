@@ -19,10 +19,18 @@
     <div class="card-body">
 
       <p class="card-text">{{i.info}}</p>
-      <a href="{{i.id  | safe}}" class="card-link">مواقفة</a> <br>
+      {% if auth == 1 %}
+      <a href="{{i.id  | safe}}" class="card-link">مواقفة</a>
       <br>
-      <a href="edit/{{i.id  | safe}}" class="card-link">edit</a> <br>
+      {% endif %}
+      <br>
+      <a href="del/{{i.id  | safe}}" class="card-link">حذف</a>
 
+       <br>
+      {% if auth == 3  %}
+      <a href="edit/{{i.id  | safe}}" class="card-link">تعديل</a>
+      {%  endif  %}
+      <br>
 
 
     </div>
@@ -37,7 +45,7 @@
 
 
 <div title="Student">
-  <div class='rounded border bg-dark'>طلبات لم تكمل بعد
+  <div class='rounded border bg-dark'>طلبات لم تكفل بعد
   </div>
   <div class='card-group'>
     {% for i in approved %}
@@ -48,8 +56,8 @@
   <div class="card-body">
 
     <p class="card-text">{{i.info}}</p>
-    <a href="del/{{i.id  | safe}}" class="card-link">حذف</a>
-  </div>
+
+
 </div>
 {% endfor %}
 </div>

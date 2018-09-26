@@ -14,29 +14,12 @@ def index(request):
 
 
 
-# def auths(request):
-#     z=0
-#     st=Student.objects.filter(username=request.user)
-#     sp=Sponsor.objects.filter(username=request.user)
-#     for i in st :
-#         if i.types=='طالب':
-#           z=1
-#       else:
-#           z=0
-#    for i in sp:
-#        if i.types=='كفيل':
-#            z=2
-#      else:
-#          z=0
-# return z
-#
+
 
 
 @requires_csrf_token
 def add_req(request):
-    # z=auths(request)
-    # if z==1:
-    #     ss=''
+
 
     if auth(request) == 3:  # student
         if request.method=='POST':
@@ -61,19 +44,15 @@ def view_req(request):
     if auth(request) == 3:  # student
         waited=''
         approved=''
-        # if request.user_authenticated:
-        #     z=auths(request)
-        #     if z==1:
+
         waited=Req_st.objects.filter(approved=False,sender=request.user)
         approved=Req_st.objects.filter(approved=True,sender=request.user)
         return render(request,'view_rq.html',{'approved':approved,'waited':waited})
-            # elif z==0:
     elif auth(request) == 1:  # admin
         waited=Req_st.objects.filter(approved=False)
         approved=Req_st.objects.filter(approved=True)
-        return render(request,'view_rq.html',{'approved':approved,'waited':waited})
-        # else:
-        #     return redirect('login')
+        return render(request,'view_rq.html',{'approved':approved,'waited':waited ,'auth':auth(request)})
+
     elif auth(request) == 2:  # sponsor
         return redirect('home')
     else:
