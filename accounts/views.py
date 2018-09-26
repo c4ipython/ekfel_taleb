@@ -27,6 +27,9 @@ def auth(request):
     return x
 
 
+def base(request):
+    return render(request, 'base.html')
+
 @requires_csrf_token
 def signup_sponsor(request):
     if auth(request) == 4:  # user
@@ -41,20 +44,20 @@ def signup_sponsor(request):
                     form2.save()
                     user = authenticate(request, username=request.POST['username'], password=request.POST['password'])
                     login(request, user)
+                    return redirect('base')
                 else:
                     form1 = User.objects.filter(username=request.POST['username'])
                     logout(request)
                     form1.delete()
                     return render(request, 'signup_sponsor.html', {'msg': 'هنالك خطأ في كتابتك للمعلومات ادناه'})
 
-                return render(request, "base.html", {'msg': 'registered'})
             else:
                 return render(request, 'signup_sponsor.html', {'form': form2, 'msg': 'This username has already been used'})
 
         return render(request, 'signup_sponsor.html', {'form': form2})
 
     else:
-        return render(request, 'base.html')
+        return redirect('base')
 
 
 @requires_csrf_token
@@ -66,10 +69,10 @@ def logins(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                return render(request, 'base.html', {'user': username})
+                return redirect('base')
         return render(request, 'login.html')
     else:
-        return render(request, 'base.html')
+        return redirect('base')
 
 
 def logouts(request):
@@ -77,7 +80,7 @@ def logouts(request):
         logout(request)
         return render(request, 'login.html')
     else:
-        return render(request, 'login.html')
+        return redirect('home')
 
 
 @requires_csrf_token
@@ -100,14 +103,14 @@ def signup_student(request):
                     form1.delete()
                     return render(request, 'signup_student.html', {'msg': 'هنالك خطأ في كتابتك للمعلومات ادناه'})
 
-                return render(request, "base.html", {'msg': 'registered'})
+                return redirect('base')
             else:
                 return render(request, 'signup_student.html', {'form': form2, 'msg': 'This username has already been used'})
 
         return render(request, 'signup_student.html', {'form': form2})
 
     else:
-        return render(request, 'base.html')
+        return redirect('base')
 
 
 def profile(request):
@@ -118,8 +121,8 @@ def profile(request):
         sponsor = Sponsor.objects.get(username=request.user)
         return render(request, 'profile.html', {'sponsor': sponsor})
     elif auth(request) == 1:  # admin
-        return render(request, 'base.html')
+        return redirect('base')
     else:
-        return render(request, 'login.html')
+        return redirect('home')
 
 
