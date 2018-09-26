@@ -81,7 +81,7 @@ def logins(request):
 def logouts(request):
     if not auth(request) == 4:  # not user
         logout(request)
-        return render(request, 'login.html')
+        return redirect('home')
     else:
         return redirect('home')
 
