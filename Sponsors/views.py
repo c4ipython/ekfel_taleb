@@ -21,7 +21,7 @@ def sponserRequest(request,id):
             e = Req_st.objects.get(id=id)
         return render(request, 'req.html')
     elif auth(request) == 1 or auth(request) == 3:  # admin or student
-        return redirect('base')
+        return redirect('home')
     else:
         return redirect('home')
 
@@ -38,7 +38,7 @@ def sponserdelete(request,id):
             d = Req_st.objects.get(id=id)
         return render(request, 'del.html')
     elif auth(request) == 1 or auth(request) == 3:  # admin or student
-        return redirect('base')
+        return redirect('home')
     else:
         return redirect('home')
 
@@ -49,7 +49,7 @@ def displayKafalat(request):
         k = Req_st.objects.filter(sponser='',req_spon='')
         return render(request, 'kafalat.html',{'k':k})
     elif auth(request) == 1 or auth(request) == 3:  # admin or student
-        return redirect('base')
+        return redirect('home')
     else:
         return redirect('home')
 
@@ -61,7 +61,7 @@ def displayMyKafalat(request):
         m = Req_st.objects.filter(sponser=u)
         return render(request,'myKafalat.html',{'m':m})
     elif auth(request) == 1 or auth(request) == 3:  # admin or student
-        return redirect('base')
+        return redirect('home')
     else:
         return redirect('home')
 
@@ -85,7 +85,7 @@ def reqAdmin(request,id):
 
         return render (request, 'reqAdmin.html')
     elif auth(request) == 2 or auth(request) == 3:  # sponsor or student
-        return redirect('base')
+        return redirect('home')
     else:
         return redirect('home')
 
@@ -103,6 +103,6 @@ def delAdmin(request,id):
             return HttpResponse('donneeee da')
         return render(request, 'delAdmin.html')
     elif auth(request) == 2 or auth(request) == 3:  # sponsor or student
-        return redirect('base')
+        return redirect('home')
     else:
         return redirect('home')

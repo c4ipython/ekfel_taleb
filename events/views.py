@@ -21,7 +21,7 @@ def add(request):
         else:
             return render(request, "add.html")
     elif auth(request) == 2 or auth(request) == 3:  # sponsor or student
-        return redirect('base')
+        return redirect('home')
     else:
         return redirect('home')
 
@@ -50,7 +50,7 @@ def deleted(request,id):
             idd = Evnts.objects.get(id=id)
         return render(request, 'dltevent.html',)
     elif auth(request) == 2 or auth(request) == 3:  # sponsor or student
-        return redirect('base')
+        return redirect('home')
     else:
         return redirect('home')
 
@@ -76,6 +76,6 @@ def editing(request,id):
             idd = Evnts.objects.get(id=id)
         return render(request, 'editEvents.html',{'form': idd})
     elif auth(request) == 2 or auth(request) == 3:  # sponsor or student
-        return redirect('base')
+        return redirect('home')
     else:
         return redirect('home')

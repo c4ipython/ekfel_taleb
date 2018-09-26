@@ -9,10 +9,8 @@ from accounts.views import auth
 def index(request):
     if auth(request) == 3:  # student
         return render(request,'Index.html')
-    elif auth(request) == 2 or auth(request) == 1:  # sponsor or student
-        return render(request, 'base.html')
     else:
-        return render(request, 'login.html')
+        return redirect('home')
 
 
 
@@ -54,10 +52,8 @@ def add_req(request):
         else:
             redirect('Index.html')
         return render(request,"add_re.html")
-    elif auth(request) == 2 or auth(request) == 1:  # sponsor or student
-        return render(request, 'base.html')
     else:
-        return render(request, 'login.html')
+        return redirect('home')
 
 
 @requires_csrf_token
@@ -79,9 +75,9 @@ def view_req(request):
         # else:
         #     return redirect('login')
     elif auth(request) == 2:  # sponsor
-        return render(request, 'base.html')
+        return redirect('home')
     else:
-        return render(request, 'login.html')
+        return redirect('home')
 
 
 
@@ -98,9 +94,9 @@ def accept_req(request,id):
         d.save()
         return redirect('view_rq')
     elif auth(request) == 2 or auth(request) == 3:  # sponsor or student
-        return render(request, 'base.html')
+        return redirect('home')
     else:
-        return render(request, 'login.html')
+        return redirect('home')
 
 @requires_csrf_token
 def disable_req(request,id):
@@ -112,9 +108,9 @@ def disable_req(request,id):
 
          return  redirect('view_rq')
     elif auth(request) == 2 or auth(request) == 1:  # sponsor or admin
-        return render(request, 'base.html')
+        return redirect('home')
     else:
-        return render(request, 'login.html')
+        return redirect('home')
 
 
 
@@ -131,6 +127,6 @@ def edit_req(request,id):
             print(m)
         return render(request,'edit_re.html',{'m':m})
     elif auth(request) == 2 or auth(request) == 1:  # sponsor or admin
-        return render(request, 'base.html')
+        return redirect('home')
     else:
-        return render(request, 'login.html')
+        return redirect('home')
