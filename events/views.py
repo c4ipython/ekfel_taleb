@@ -21,9 +21,9 @@ def add(request):
         else:
             return render(request, "add.html")
     elif auth(request) == 2 or auth(request) == 3:  # sponsor or student
-        return render(request, 'base.html')
+        return redirect('base')
     else:
-        return render(request, 'login.html')
+        return redirect('home')
 
 
 def viewEvents(request):
@@ -35,7 +35,7 @@ def viewEvents(request):
         missed = Evnts.objects.filter(dates__range=(lastyear,yesterday),disabled= False)
         return render(request, 'viewevents.html', {'list':lis, 'missed':missed})
     else:
-        return render(request, 'login.html')
+        return redirect('home')
 
 
 @requires_csrf_token
@@ -50,9 +50,9 @@ def deleted(request,id):
             idd = Evnts.objects.get(id=id)
         return render(request, 'dltevent.html',)
     elif auth(request) == 2 or auth(request) == 3:  # sponsor or student
-        return render(request, 'base.html')
+        return redirect('base')
     else:
-        return render(request, 'login.html')
+        return redirect('home')
 
 
 @requires_csrf_token
@@ -76,6 +76,6 @@ def editing(request,id):
             idd = Evnts.objects.get(id=id)
         return render(request, 'editEvents.html',{'form': idd})
     elif auth(request) == 2 or auth(request) == 3:  # sponsor or student
-        return render(request, 'base.html')
+        return redirect('base')
     else:
-        return render(request, 'login.html')
+        return redirect('home')
