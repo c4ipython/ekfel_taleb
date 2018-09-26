@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render , redirect
 from Students.models import Req_st
 from django.http import HttpResponse
 from django.views.decorators.csrf import requires_csrf_token
@@ -20,8 +20,10 @@ def sponserRequest(request,id):
         else:
             e = Req_st.objects.get(id=id)
         return render(request, 'req.html')
+    elif auth(request) == 1 or auth(request) == 3:  # admin or student
+        return redirect('base')
     else:
-        return HttpResponse('لا يمكنك الدخول الى هنا')
+        return redirect('home')
 
 
 @requires_csrf_token
@@ -35,8 +37,10 @@ def sponserdelete(request,id):
         else:
             d = Req_st.objects.get(id=id)
         return render(request, 'del.html')
+    elif auth(request) == 1 or auth(request) == 3:  # admin or student
+        return redirect('base')
     else:
-        return HttpResponse('لا يمكنك الدخول الى هنا')
+        return redirect('home')
 
 
 @requires_csrf_token
@@ -44,8 +48,10 @@ def displayKafalat(request):
     if auth(request) == 2:  # sponsor
         k = Req_st.objects.filter(sponser='',req_spon='')
         return render(request, 'kafalat.html',{'k':k})
+    elif auth(request) == 1 or auth(request) == 3:  # admin or student
+        return redirect('base')
     else:
-        return HttpResponse('لا يمكنك الدخول الى هنا')
+        return redirect('home')
 
 
 @requires_csrf_token
@@ -54,8 +60,10 @@ def displayMyKafalat(request):
         u = request.user
         m = Req_st.objects.filter(sponser=u)
         return render(request,'myKafalat.html',{'m':m})
+    elif auth(request) == 1 or auth(request) == 3:  # admin or student
+        return redirect('base')
     else:
-        return HttpResponse('لا يمكنك الدخول الى هنا')
+        return redirect('home')
 
 
 
@@ -76,8 +84,10 @@ def reqAdmin(request,id):
                     return HttpResponse('donneeee b')
 
         return render (request, 'reqAdmin.html')
+    elif auth(request) == 2 or auth(request) == 3:  # sponsor or student
+        return redirect('base')
     else:
-        return HttpResponse('لا يمكنك الدخول الى هنا')
+        return redirect('home')
 
 
 
@@ -92,5 +102,7 @@ def delAdmin(request,id):
             da.save()
             return HttpResponse('donneeee da')
         return render(request, 'delAdmin.html')
+    elif auth(request) == 2 or auth(request) == 3:  # sponsor or student
+        return redirect('base')
     else:
-        return HttpResponse('لا يمكنك الدخول الى هنا')
+        return redirect('home')
