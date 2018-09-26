@@ -19,13 +19,21 @@ def auth(request):
     elif request.user.is_authenticated and sponsor_approved:
         sponsor_approved = Sponsor.objects.filter(username=request.user, approved=True)
         if sponsor_approved:
-            x = 2  # sponsor
+            sponsor_approved = Sponsor.objects.filter(username=request.user, approved=True, disabled=True)
+            if sponsor_approved:
+                x = 0  # disabled account
+            else:
+                x = 2  # sponsor
         else:
             x = 5  # sponsor don't have approved
     elif request.user.is_authenticated and student_approved:
         student_approved = Students.objects.filter(username=request.user, approved=True)
         if student_approved:
-            x = 3  # student
+            student_approved = Students.objects.filter(username=request.user, approved=True, disabled=True)
+            if student_approved:
+                x = 0  # disabled account
+            else:
+                x = 3  # student
         else:
             x = 6  # student don't have approved
     else:
