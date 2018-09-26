@@ -24,12 +24,13 @@
       <br>
       {% endif %}
       <br>
+<br>
+      {% if auth == 3 %}
       <a href="del/{{i.id  | safe}}" class="card-link">حذف</a>
-
-       <br>
-      {% if auth == 3  %}
+<br>
       <a href="edit/{{i.id  | safe}}" class="card-link">تعديل</a>
-      {%  endif  %}
+      {% endif %}
+
       <br>
 
 
