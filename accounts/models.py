@@ -5,12 +5,20 @@ from django.db import models
 
 
 class Sponsor(models.Model):
+    list_city = (
+        ('Baghdad', 'Baghdad'),
+        ('Karbala', 'Karbala'),
+        ('Deyala', 'Deyala'),
+        ('basrah', 'basrah'),
+    )
+
+
     username = models.CharField(max_length=100, blank=True)
     full_name = models.CharField(max_length=100, blank=False)
     age = models.IntegerField(blank=True)
     birth_date = models.DateField(null=True)
     number = models.CharField(max_length=12, blank=False)
-    city = models.CharField(max_length=50, blank=True)
+    city = models.CharField(max_length=50, blank=True, choices=list_city)
     img = models.FileField(upload_to='docs/', blank=False)
     work = models.CharField(max_length=100, blank=False)
     work_locations = models.CharField(max_length=100, blank=True)
@@ -27,14 +35,28 @@ class Sponsor(models.Model):
 
 
 class Students(models.Model):
+    list_city = (
+        ('Baghdad', 'Baghdad'),
+        ('Karbala', 'Karbala'),
+        ('Deyala', 'Deyala'),
+        ('basrah', 'basrah'),
+    )
+
+    list_stage = (
+        ('First stage', 'First stage'),
+        ('second stage', 'second stage'),
+        ('third stage', 'third stage'),
+    )
+
+
     username = models.CharField(max_length=100, blank=True)
     full_name = models.CharField(max_length=100, blank=False)
     age = models.IntegerField(blank=True)
     birth_date = models.DateField(null=True)
     number = models.CharField(max_length=12, blank=False)
-    city = models.CharField(max_length=50, blank=True)
+    city = models.CharField(max_length=50, choices=list_city)
     img = models.FileField(upload_to='docs/', blank=False)
-    stage = models.CharField(max_length=50, blank=True)
+    stage = models.CharField(max_length=50, choices=list_stage)
     approved = models.BooleanField(default=False)
     up_date = models.DateField(auto_now_add=True)
     type_user = models.CharField(max_length=50, default='student')
