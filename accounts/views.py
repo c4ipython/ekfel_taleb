@@ -131,8 +131,6 @@ def profile(request):
     elif auth(request) == 2 or auth(request) == 5:  # sponsor
         sponsor = Sponsor.objects.get(username=request.user)
         return render(request, 'profile.html', {'sponsor': sponsor})
-    elif auth(request) == 1:  # admin
-        return redirect('home')
     else:
         return redirect('home')
 
