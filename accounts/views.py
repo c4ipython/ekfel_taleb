@@ -17,9 +17,9 @@ def auth(request):
     if request.user.is_authenticated and not sponsor_approved and not student_approved:
         x = 1  # admin
     elif request.user.is_authenticated and sponsor_approved:
-        sponsor_approved = Sponsor.objects.filter(username=request.user, approved=True)
+        sponsor_approved = sponsor_approved.filter(approved=True)
         if sponsor_approved:
-            sponsor_approved = Sponsor.objects.filter(username=request.user, approved=True, disabled=True)
+            sponsor_approved = sponsor_approved.filter(disabled=True)
             if sponsor_approved:
                 x = 0  # disabled account
             else:
@@ -27,9 +27,9 @@ def auth(request):
         else:
             x = 5  # sponsor don't have approved
     elif request.user.is_authenticated and student_approved:
-        student_approved = Students.objects.filter(username=request.user, approved=True)
+        student_approved = student_approved.filter(approved=True)
         if student_approved:
-            student_approved = Students.objects.filter(username=request.user, approved=True, disabled=True)
+            student_approved = student_approved.filter(disabled=True)
             if student_approved:
                 x = 0  # disabled account
             else:
