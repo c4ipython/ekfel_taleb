@@ -4,7 +4,24 @@
 {% block content %}
 
 <h1>Contact Us</h1>
+{% if msg_ok %}
+<div class="alert alert-success" role="alert" align="right" style="width: 250px; height: 100px;">
+  <hr>
+   <p class="mb-0">{{msg_ok | safe }}</p>
+ </div>
+ <div>
+ <a href="{% url 'home' %}">go to home</a>
+</div>
+{% endif %}
 
+{% if msg_er %}
+<div class="alert alert-success" role="alert" align="right" style="width: 250px; height: 100px;">
+  <hr>
+   <p class="mb-0">{{msg_er | safe }}</p>
+ </div>
+{% endif %}
+<br>
+{%if not msg_ok or not msg_ok%}
 <form method="post">
     {% csrf_token %}
     {{ form.as_p | safe }}
@@ -12,6 +29,7 @@
       <button type="submit">Send</button>
     </div>
 </form>
+{% endif %}
 
 
 {% endblock content %}

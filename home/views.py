@@ -11,6 +11,8 @@ def home(request):
 
 @requires_csrf_token
 def contact(request):
+    msg_er=''
+    msg_ok=''
     if request.method == 'GET':
         form = ContactForm ()
     else:
@@ -22,9 +24,10 @@ def contact(request):
             try:
                 send_mail (name, message, email, ['info@example.com'])
             except BadHeaderError:
-                return HttpResponse ('Invalid header found.')
-            #msg = 'Success! Thank you for your message.'
-            return  HttpResponse('Success! Thank you for your message.')
+                msg_er = 'Invalid header found.'
+                return render (request, "contact.html", {'msg_er': msg_er })
+            msg_ok = 'Success! Thank you for your message.'
+            return  render (request,"contact.html", {'msg_ok': msg_ok })
 
     return render (request, "contact.html", {'form': form })
 
