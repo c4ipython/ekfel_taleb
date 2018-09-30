@@ -29,9 +29,9 @@ def add_req(request):
                    info=request.POST.get('info')
                    reqs=Req_st(title=title,info=info,sender=request.user)
                    reqs.save()
-                   return HttpResponse('ok')
+                   return redirect('view_rq')
               else:
-                   return HttpResponse('you cant')
+                   return redirect('home')
         else:
             redirect('Index.html')
         return render(request,"add_re.html")
