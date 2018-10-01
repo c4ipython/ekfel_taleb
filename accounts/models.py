@@ -5,12 +5,26 @@ from django.db import models
 
 
 class Sponsor(models.Model):
-    list_city = (
-        ('Baghdad', 'Baghdad'),
-        ('Karbala', 'Karbala'),
-        ('Deyala', 'Deyala'),
-        ('basrah', 'basrah'),
-    )
+    PROVINCE_LIST =(
+    ('الانبار', 'الانبار'),
+    ('البصره', 'البصره'),
+    ('المثنى', 'المثنى'),
+    ('القادسيه', 'القادسيه'),
+    ('النجف', 'النجف'),
+    ('اربيل', 'اربيل'),
+    ('سليمانية', 'سليمانية'),
+    ('بابل', 'بابل'),
+    ('بغداد', 'بغداد'),
+    ('دهوك', 'دهوك'),
+    ('ذي قار', 'ذي قار'),
+    ('ديالى', 'ديالى'),
+    ('كربلاء', 'كربلاء'),
+    ('كركوك', 'كركوك'),
+    ('ميسان', 'ميسان'),
+    ('نينوى', 'نينوى'),
+    ('صلاح الدين', 'صلاح الدين'),
+    ('واسط', 'واسط'),
+)
 
 
     username = models.CharField(max_length=100, blank=True)
@@ -18,7 +32,7 @@ class Sponsor(models.Model):
     age = models.IntegerField(blank=True)
     birth_date = models.DateField(null=True)
     number = models.CharField(max_length=12, blank=False)
-    city = models.CharField(max_length=50, blank=True, choices=list_city)
+    city = models.CharField(max_length=50, blank=True, choices=PROVINCE_LIST)
     img = models.FileField(upload_to='docs/', blank=False)
     work = models.CharField(max_length=100, blank=False)
     work_locations = models.CharField(max_length=100, blank=True)
@@ -35,17 +49,41 @@ class Sponsor(models.Model):
 
 
 class Students(models.Model):
-    list_city = (
-        ('Baghdad', 'Baghdad'),
-        ('Karbala', 'Karbala'),
-        ('Deyala', 'Deyala'),
-        ('basrah', 'basrah'),
-    )
+    
+    PROVINCE_LIST =(
+    ('الانبار', 'الانبار'),
+    ('البصره', 'البصره'),
+    ('المثنى', 'المثنى'),
+    ('القادسيه', 'القادسيه'),
+    ('النجف', 'النجف'),
+    ('اربيل', 'اربيل'),
+    ('سليمانية', 'سليمانية'),
+    ('بابل', 'بابل'),
+    ('بغداد', 'بغداد'),
+    ('دهوك', 'دهوك'),
+    ('ذي قار', 'ذي قار'),
+    ('ديالى', 'ديالى'),
+    ('كربلاء', 'كربلاء'),
+    ('كركوك', 'كركوك'),
+    ('ميسان', 'ميسان'),
+    ('نينوى', 'نينوى'),
+    ('صلاح الدين', 'صلاح الدين'),
+    ('واسط', 'واسط'),
+)
 
     list_stage = (
-        ('First stage', 'First stage'),
-        ('second stage', 'second stage'),
-        ('third stage', 'third stage'),
+        ('اول ابتدائي', 'اول ابتدائي'),
+        ('ثاني ابتدائي', 'ثاني ابتدائي'),
+        ('ثالث ابتدائي', 'ثالث ابتدائي'),
+        ('رابع ابتدائي', 'رابع ابتدائي'),
+        ('خامس ابتدائي', 'خامس ابتدائي'),
+        ('سادس ابتدائي', 'سادس ابتدائي'),
+        ('اول متوسط', 'اول متوسط'),
+        ('ثاني متوسط', 'ثاني متوسط'),
+        ('ثالث متوسط', 'ثالث متوسط'),
+        ('رابع اعدادي', 'رابع اعدادي'),
+        ('خامس اعدادي', 'خامس اعدادي'),
+        ('سادس اعدادي', 'سادس اعدادي'),
     )
 
 
@@ -54,7 +92,7 @@ class Students(models.Model):
     age = models.IntegerField(blank=True)
     birth_date = models.DateField(null=True)
     number = models.CharField(max_length=12, blank=False)
-    city = models.CharField(max_length=50, choices=list_city)
+    city = models.CharField(max_length=50, choices=PROVINCE_LIST)
     img = models.FileField(upload_to='docs/', blank=False)
     stage = models.CharField(max_length=50, choices=list_stage)
     approved = models.BooleanField(default=False)
