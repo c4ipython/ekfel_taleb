@@ -6,12 +6,6 @@ from django.shortcuts import redirect
 from accounts.views import auth
 
 
-def index(request):
-    if auth(request) == 3:  # student
-        return render(request,'Index.html')
-    else:
-        return redirect('home')
-
 
 
 
@@ -19,8 +13,6 @@ def index(request):
 
 @requires_csrf_token
 def add_req(request):
-
-
     if auth(request) == 3:  # student
         if request.method=='POST':
               x=Req_st.objects.filter(sender=request.user)
@@ -33,10 +25,15 @@ def add_req(request):
               else:
                    return redirect('home')
         else:
-            redirect('Index.html')
+            redirect('home')
         return render(request,"add_re.html")
     else:
         return redirect('home')
+
+
+
+
+
 
 
 @requires_csrf_token
@@ -86,10 +83,10 @@ def disable_req(request,id):
          a.save()
 
          return  redirect('view_rq')
-    elif auth(request) == 2 or auth(request) == 1:  # sponsor or admin
-        return redirect('home')
+
     else:
         return redirect('home')
+
 
 
 
