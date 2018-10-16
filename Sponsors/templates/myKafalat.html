@@ -19,21 +19,21 @@ div{
 
 <body>
 
-    {% for i in m %}
-        {% if i.approved == False %}
+    {% for i in ma %}
         <div id='vv'>
           <h3>not approved</h3>
                   <h3><a href="{{i.id}}">{{ i.title | safe }}</a> </h3>
                   <h3>{{ i.info | safe }}</h3>
                   <h3>{{ i.sender | safe }}</h3>
+                    <h3> req: {{ i.req_spon | safe }}</h3>
+
 
         </div>
 
-      {% endif %}
-
+{% endfor %}
   <br/>
 
-                {% if i.approved == True %}
+        {% for i in m %}
   <br/>
 
                 <div>
@@ -41,10 +41,10 @@ div{
                         <h3><a href="{{i.id}}">{{ i.title | safe }}</a> </h3>
                         <h3>{{ i.info | safe }}</h3>
                         <h3>{{ i.sender | safe }}</h3>
+                          <h3> sponsor: {{ i.sponser | safe }}</h3>
 
                 </div>
 
-{% endif %}
 
 {% endfor %}
 
