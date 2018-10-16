@@ -33,7 +33,7 @@ def viewEvents(request):
         lastyear = date.today() - timedelta(hours=7200)
         lis =Evnts.objects.filter(dates__range=(date.today(),nextyear), disabled= False)
         missed = Evnts.objects.filter(dates__range=(lastyear,yesterday),disabled= False)
-        return render(request, 'viewevents.html', {'list':lis, 'missed':missed})
+        return render(request, 'viewevents.html', {'list':lis, 'missed':missed, 'auth': auth(request)})
     else:
         return redirect('home')
 

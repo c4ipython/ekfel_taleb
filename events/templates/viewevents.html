@@ -8,6 +8,8 @@
   <center>
     <h1><a href="{% url 'add_event' %}"> اضافة مناسبة </a></h1>
    </center>
+  
+   {% if auth == 2 or auth == 3 or auth == 1 %}
   <h1>الانشطة القادمة</h1>
 {% for i in list %}
 <div style="border: dashed 2px green; width: 400px;display: inline-block; background-color: lightgreen;" dir="rtl">
@@ -20,13 +22,18 @@
 <br>
 <!--- زر الحذف من صلاحية المدير فقط وكذلك التعديل-->
 <center>
+    {% if auth == 1 %}
 <a href="del/{{i.id|safe}}">حذف </a> &nbsp;
 <a href="edit/{{i.id|safe}}">تعديل </a>
 <br> &nbsp;
+{% endif %}
+
 </center>
 </div>
 {% endfor %}
+{% endif %}
 <br><br><br><br><br>
+{% if auth == 1 %}
 <!-- الانشطة السابقة تظهر للمدير فقط -->
 <h1>الانشطة السابقة</h1>
 {% for i in missed %}
@@ -39,5 +46,6 @@
 
 </div>
 {% endfor %}
+{% endif %}
 </body>
 </html>
