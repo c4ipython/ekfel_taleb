@@ -4,10 +4,11 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from home.forms import ContactForm
 from django.views.decorators.csrf import requires_csrf_token
+from accounts.views import auth
 
 @requires_csrf_token
 def home(request):
-    return render(request, 'home.html')
+    return render(request, 'home.html', {'auth': auth(request)})
 
 @requires_csrf_token
 def contact(request):

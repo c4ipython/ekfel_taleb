@@ -4,7 +4,14 @@
 {% block content %}
 
   <h1> home page </h1>
+  {% if auth == 4 %}
 <h3><a href="http://127.0.0.1:8000/account/signup_student/">تسجيل طالب</a></h3>
 <h3><a href="http://127.0.0.1:8000/account/signup_sponsor/">تسجيل كفيل</a></h3>
+{% endif %}
+{% if auth == 2 or auth == 3 %}
 <h3><a href="http://127.0.0.1:8000/account/profile/">البروفايل</a></h3>
+{% endif %}
+{% if auth == 5 or auth == 6 %}
+<p>يرجى الانتظار لحين الموافقه على حسابك </p>
+{% endif %}
 {% endblock content %}
