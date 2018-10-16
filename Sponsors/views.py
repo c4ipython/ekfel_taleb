@@ -58,8 +58,9 @@ def displayKafalat(request):
 def displayMyKafalat(request):
     if auth(request) == 2:  # sponsor
         u = request.user
-        m = Req_st.objects.filter(sponser=u)
-        return render(request,'myKafalat.html',{'m':m})
+        m = Req_st.objects.filter(sponser=u, approved=True,req_spon='')
+        ma = Req_st.objects.filter(req_spon=u,approved=True,sponser='')
+        return render(request,'myKafalat.html',{'m':m, 'ma':ma})
     elif auth(request) == 1 or auth(request) == 3:  # admin or student
         return redirect('home')
     else:
