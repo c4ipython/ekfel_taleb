@@ -46,8 +46,10 @@ def sponserdelete(request,id):
 @requires_csrf_token
 def displayKafalat(request):
     if auth(request) == 2 or auth(request) == 1:  # sponsor or admin
-        k = Req_st.objects.filter(sponser='',req_spon='')
-        return render(request, 'kafalat.html',{'k':k})
+        kT = Req_st.objects.filter(sponser='',req_spon='',approved = True)
+        kF = Req_st.objects.filter(sponser='',req_spon='',approved = False)
+
+        return render(request, 'kafalat.html',{'kT':kT, 'kF': kF, 'auth': auth(request)})
     else:
         return redirect('home')
 

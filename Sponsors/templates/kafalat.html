@@ -14,8 +14,25 @@ div{
 </head>
 
 <body>
+{% if auth == 2 or 1%}
+الطلبات المقبوله 
 
-                {% for i in k %}
+                {% for i in kT %}
+    <div>
+                    <h3 scope="row">{{ i.id | safe }}</h3>
+                    <!-- <td>{{ i.name }}</td> -->
+                    <h3><a href="{{i.id}}">{{ i.title | safe }}</a> </h3>
+                    <h3>{{ i.info | safe }}</h3>
+                    <h3>{{ i.approved | safe }}</h3>
+                    
+    </div>
+                {% endfor %}
+                {% endif %}
+ 
+                {% if auth == 1 %}
+                الطلبات الغير مقبوله 
+
+                {% for i in kF %}
     <div>
                     <h3 scope="row">{{ i.id | safe }}</h3>
                     <!-- <td>{{ i.name }}</td> -->
@@ -25,7 +42,7 @@ div{
 
     </div>
                 {% endfor %}
-
+{% endif %}
 
 </body>
 
