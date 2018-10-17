@@ -7,14 +7,16 @@
 <body>
   {% block body %}
   <div title="Student">
-    <div class='rounded border bg-dark'>
+    <h3>
       طلبات قيد الموافقة
-    </div>
+    </h3>
     <div class='card-group'>
       {% for i in waited %}
       <div class="card bg-light text-dark" >
         <div class="card-header">
+
           {{i.title}}
+
         </div>
     <div class="card-body">
 
@@ -36,18 +38,20 @@
 
     </div>
   </div>
+  <h2> -------------------- </h2>
+
   {% endfor %}
 </div>
 
 
-<br>
+<hr>
 
 
 
 
 <div title="Student">
-  <div class='rounded border bg-dark'>طلبات لم تكفل بعد
-  </div>
+  <h3>طلبات لم تكفل بعد
+  </h3>
   <div class='card-group'>
     {% for i in approved %}
     <div class="card bg-light text-dark" >
@@ -57,17 +61,19 @@
   <div class="card-body">
 
     <p class="card-text">{{i.info}}</p>
-
+{{i.id}}
 
 </div>
+<h2> -------------------- </h2>
+
 {% endfor %}
 </div>
-<br>
+<hr>
 
 <div title="Student">
-  <div class='rounded border bg-dark'>
+  <h3>
     طلبات مكفولة
-  </div>
+  </h3>
   <div class='card-group'>
     {% for i in approved %}
     <div class="card bg-light text-dark" >
@@ -84,6 +90,7 @@
     <a href="#" class="card-link">Card link</a>
   </div>
 </div>
+<h2> -------------------- </h2>
 {% endfor %}
 </div>
 {% endblock %}
