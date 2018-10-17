@@ -42,12 +42,13 @@ def view_req(request):
         waited=''
         approved=''
 
-        waited=Req_st.objects.filter(approved=False,sender=request.user)
+        waited=Req_st.objects.filter(approved=False,sender=request.user,disable=False)
         approved=Req_st.objects.filter(approved=True,sender=request.user)
         return render(request,'view_rq.html',{'approved':approved,'waited':waited , 'auth':auth(request)})
     elif auth(request) == 1:  # admin
-        waited=Req_st.objects.filter(approved=False)
+        waited=Req_st.objects.filter(approved=False,disable=False)
         approved=Req_st.objects.filter(approved=True)
+
         return render(request,'view_rq.html',{'approved':approved,'waited':waited ,'auth':auth(request)})
 
     elif auth(request) == 2:  # sponsor

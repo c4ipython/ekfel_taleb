@@ -24,19 +24,17 @@
       {% if auth == 1 %}
       <a href="{{i.id  | safe}}" class="card-link">مواقفة</a>
       <br>
-      <a href="del/{{i.id  | safe}}" class="card-link">حذف</a>
 
       {% endif %}
       <br>
 <br>
       {% if auth == 3 %}
-      <a href="del/{{i.id  | safe}}" class="card-link">حذف</a>
 <br>
       <a href="edit/{{i.id  | safe}}" class="card-link">تعديل</a>
       {% endif %}
 
       <br>
-
+      <a href="del/{{i.id  | safe}}" class="card-link">حذف</a>
 
     </div>
   </div>
