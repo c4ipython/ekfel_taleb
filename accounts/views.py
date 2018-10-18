@@ -74,13 +74,24 @@ def signup_sponsor(request):
 @requires_csrf_token
 def logins(request):
     if auth(request) == 4:  # user
+        student = ''
+        sponsors = ''
         if request.method == "POST":
             username = request.POST.get('username')
             password = request.POST.get('password')
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('home')
+                student = Students.objects.filter(username=request.user, disabled=True)
+                sponsors = Sponsor.objects.filter(username=request.user, disabled=True)
+                if not student and not sponsors: 
+                    return redirect('home')
+                else:
+                    logout(request)
+                    return render(request, 'login.html', {'msg': 'هذا الحساب متوقف عن العمل لا يمكن تسجيل دخول اليه'})
+            else:
+                return render(request, 'login.html', {'msg': 'لديك خطأ في كلمه السر او اسم المستخدم يرجى التأكد'})
+
         return render(request, 'login.html')
     else:
         return redirect('home')
@@ -134,4 +145,21 @@ def profile(request):
     else:
         return redirect('home')
 
+
+def delete_account(request):
+    if auth(request) == 3 or auth(request) == 6:  # student
+        student = Students.objects.get(username=request.user)
+        student.disabled = True
+        student.save()
+        logout(request)
+        return redirect('home')
+        
+    elif auth(request) == 2 or auth(request) == 1:  # sponsor
+        sponsor = Sponsor.objects.get(username=request.user)
+        sponsor.disabled = True
+        sponsor.save()
+        logout(request)
+        return redirect('home')
+    else:
+        return redirect('home')
 
