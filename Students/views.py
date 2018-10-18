@@ -51,8 +51,8 @@ def view_req(request):
 
         return render(request,'view_rq.html',{'approved':approved,'waited':waited ,'auth':auth(request)})
 
-    elif auth(request) == 2:  # sponsor
-        return redirect('home')
+    # elif auth(request) == 2:  # sponsor
+    #     return redirect('home')
     else:
         return redirect('home')
 
@@ -77,8 +77,15 @@ def accept_req(request,id):
 
 @requires_csrf_token
 def disable_req(request,id):
-    if auth(request) == 3:  # student
+    if auth(request) == 3 :  # student
          a=Req_st.objects.get(sender=request.user,id=id)
+
+         a.disable=True
+         a.save()
+
+         return  redirect('view_rq')
+    elif auth(request) == 1 :  #admin
+         a=Req_st.objects.get(id=id)
 
          a.disable=True
          a.save()
