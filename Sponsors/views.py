@@ -7,36 +7,30 @@ from accounts.views import auth
 @requires_csrf_token
 def sponserRequest(request,id):
     if auth(request) == 2:  # sponsor
-        if request.method == 'POST':
             a = Req_st.objects.filter(req_spon=request.user)
             aa = len(a)
             if aa < 3:
                 e = Req_st.objects.get(id=id)
                 e.req_spon = request.user.username
                 e.save()
-                return HttpResponse('donneeee')
+                return redirect('kafalaty')
             else:
                 return HttpResponse('لا يمككن طلب اكثر من ثلاث كفالات في وقت واحد, الرجاء الانتضار لحين موافقه طلبات كفالتك')
-        else:
-            e = Req_st.objects.get(id=id)
-        return render(request, 'req.html')
     elif auth(request) == 1 or auth(request) == 3:  # admin or student
         return redirect('home')
     else:
         return redirect('home')
 
 
+
 @requires_csrf_token
 def sponserdelete(request,id):
     if auth(request) == 2:  # sponsor
-        if request.method == 'POST':
             d = Req_st.objects.get(id=id)
             d.sponser = ""
+            d.req_spon = ""
             d.save()
-            return HttpResponse('donneeee')
-        else:
-            d = Req_st.objects.get(id=id)
-        return render(request, 'del.html')
+            return redirect('kafalaty')
     elif auth(request) == 1 or auth(request) == 3:  # admin or student
         return redirect('home')
     else:
