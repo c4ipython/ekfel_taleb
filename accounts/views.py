@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
 from .models import Sponsor
 from .models import Students
 from django.contrib.auth import login, authenticate, logout
@@ -9,6 +8,7 @@ from accounts.forms import StudentForm
 from accounts.forms import SponsorForm
 # Create your views here.
 
+# اعطاء صلاحيه لكل مستخدم حسب موقعه وحمايه الموقع من التلاعب 
 
 def auth(request):
     sponsor_approved = Sponsor.objects.filter(username=request.user)
@@ -40,12 +40,15 @@ def auth(request):
         x = 4  # user
     return x
 
-
+# تسجيل دخول الخاص بحسابات الكفلاء وارسالهم الى الصفحه الرئيسيه
+#  بعد اتمام عمليه التسجيل للانتظار
+# لحين التأكد من المعلومات الخاصه بهم وموافقه على حسابات
 @requires_csrf_token
 def signup_sponsor(request):
     if auth(request) == 4:  # user
         form2 = SponsorForm()
         if request.method == 'POST':
+            # التاكد من ان اليوزر غير موجود في قاعدة البيانات لمنع وجود الاخطاء او التكرار
             form1 = User.objects.filter(username=request.POST['username'])
             if not form1:
                 form1 = User.objects.create_user(username=request.POST['username'], password=request.POST['password'])
@@ -70,7 +73,7 @@ def signup_sponsor(request):
     else:
         return redirect('home')
 
-
+# تسجيل دخول الى الحسابات باستخدام اليوزر والباسورد
 @requires_csrf_token
 def logins(request):
     if auth(request) == 4:  # user
@@ -80,10 +83,13 @@ def logins(request):
             username = request.POST.get('username')
             password = request.POST.get('password')
             user = authenticate(request, username=username, password=password)
+            # للتأكد ان هذا الحساب موجود بلفعل في قاعده البيانات
             if user is not None:
+
                 login(request, user)
                 student = Students.objects.filter(username=request.user, disabled=True)
                 sponsors = Sponsor.objects.filter(username=request.user, disabled=True)
+                # للتأكد ان هذا الحساب غير متوقف 
                 if not student and not sponsors: 
                     return redirect('home')
                 else:
@@ -96,7 +102,7 @@ def logins(request):
     else:
         return redirect('home')
 
-
+# عمليه تسجيل الخروج مع صلاحيه والتي تعمل مع الاشخاص المسجلين داخل الموقع 
 def logouts(request):
     if not auth(request) == 4:  # not user
         logout(request)
@@ -104,13 +110,16 @@ def logouts(request):
     else:
         return redirect('home')
 
-
+# تسجيل ك طالب من خلال اليوزر والباسورد ومعلومات اخرى خاصه 
+# ويتم نقله الى الصفحه الرئيسيه للانتظار 
+#لحين التأكد من معلوماته ويتم الموافقه على حسابه 
 @requires_csrf_token
 def signup_student(request):
     if auth(request) == 4:  # user
         form2 = StudentForm()
         if request.method == 'POST':
             form1 = User.objects.filter(username=request.POST['username'])
+            # للتاكد من عدم وجود مثل هذا الحساب في قاعدة البيانات 
             if not form1:
                 form1 = User.objects.create_user(username=request.POST['username'], password=request.POST['password'])
                 form1.save()
@@ -134,7 +143,7 @@ def signup_student(request):
     else:
         return redirect('home')
 
-
+# اظهار المعلومات الشخصيه للمستخدمين مع صلاحيه لمنع التلاعب 
 def profile(request):
     if auth(request) == 3 or auth(request) == 6:  # student
         student = Students.objects.get(username=request.user)
@@ -145,7 +154,8 @@ def profile(request):
     else:
         return redirect('home')
 
-
+# حذف الحسابات وهو بلاصل ليس الحذف وانما تعطيله ليتم الاستفاده من اسباب الحذف 
+# ويتم الحذف حسب صلاحيه المستخدم 
 def delete_account(request):
     if auth(request) == 3 or auth(request) == 6:  # student
         student = Students.objects.get(username=request.user)
