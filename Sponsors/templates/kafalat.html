@@ -2,6 +2,7 @@
 <html>
 
 <head>
+
 <style>
 
 div{
@@ -11,6 +12,9 @@ div{
   width : 10%;
 }
 </style>
+
+
+
 </head>
 
 <body dir="rtl">
@@ -46,8 +50,8 @@ div{
                       <h3>تفاصيل الطلب:{{ i.info | safe }}</h3>
                       {% if i.req_spon != '' %}
                                     <h3> طلب كفاله: {{ i.req_spon | safe }}</h3>
-                                      <h3><button onclick="window.location.href='adminA/{{i.id | safe}}'">قبول الطلب  </button></h3>
-                                    <h3><button onclick="window.location.href='adminb/{{i.id | safe}}'"> رفض لطلب  </button></h3>
+                                      <h3><button onclick="window.location.href='adminA/{{i.id | safe}}'"> قبول الطلب الكفاله </button></h3>
+                                    <h3><button onclick="window.location.href='adminb/{{i.id | safe}}'"> رفض لطلب  الكفاله </button></h3>
                                   {% endif %}
 
                                   {% if i.sponser != '' %}

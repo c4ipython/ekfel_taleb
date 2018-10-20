@@ -71,7 +71,7 @@ def acceptAdmin(request,id):
         a.sponser = a.req_spon
         a.req_spon = ""
         a.save()
-        return redirect('kafalaty')
+        return redirect('kafalat')
     elif auth(request) == 2 or auth(request) == 3:  # sponsor or student
         return redirect('home')
     else:
@@ -85,7 +85,7 @@ def refuseAdmin(request,id):
         a = Req_st.objects.get(id=id)
         a.req_spon = ""
         a.save()
-        return redirect('kafalaty')
+        return redirect('kafalat')
     elif auth(request) == 2 or auth(request) == 3:  # sponsor or student
         return redirect('home')
     else:
