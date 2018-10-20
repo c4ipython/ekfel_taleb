@@ -41,8 +41,8 @@ def sponserdelete(request,id):
 def displayKafalat(request):
     if auth(request) == 2 or auth(request) == 1:  # sponsor or admin
         kta = Req_st.objects.filter(approved = True)
-        kT = Req_st.objects.filter(sponser='',req_spon='',approved = True)
-        kF = Req_st.objects.filter(sponser='',req_spon='',approved = False)
+        kT = Req_st.objects.filter(sponser='',req_spon='',approved = True,disable = False)
+        kF = Req_st.objects.filter(sponser='',req_spon='',approved = False,disable = False)
 
         return render(request, 'kafalat.html',{'kT':kT, 'kF': kF, 'kta':kta, 'auth': auth(request)})
     else:
@@ -53,8 +53,8 @@ def displayKafalat(request):
 def displayMyKafalat(request):
     if auth(request) == 2:  # sponsor
         u = request.user
-        m = Req_st.objects.filter(sponser=u, approved=True,req_spon='')
-        ma = Req_st.objects.filter(req_spon=u,approved=True,sponser='')
+        m = Req_st.objects.filter(sponser=u, approved=True,req_spon='',disable = False)
+        ma = Req_st.objects.filter(req_spon=u,approved=True,sponser='',disable = False)
         return render(request,'myKafalat.html',{'m':m, 'ma':ma})
     elif auth(request) == 1 or auth(request) == 3:  # admin or student
         return redirect('home')
@@ -102,6 +102,35 @@ def delAdmin(request,id):
             da.sponser = ""
             da.save()
             return redirect('kafalaty')
+    elif auth(request) == 2 or auth(request) == 3:  # sponsor or student
+        return redirect('home')
+    else:
+        return redirect('home')
+
+
+
+
+@requires_csrf_token
+def adminReq_stA(request,id):
+    if auth(request) == 1:  # admin
+            a = Req_st.objects.get(id=id)
+            a.approved = True
+            a.save()
+            return redirect('kafalat')
+    elif auth(request) == 2 or auth(request) == 3:  # sponsor or student
+        return redirect('home')
+    else:
+        return redirect('home')
+
+
+
+@requires_csrf_token
+def adminReq_stB(request,id):
+    if auth(request) == 1:  # admin
+            a = Req_st.objects.get(id=id)
+            a.disable = True
+            a.save()
+            return redirect('kafalat')
     elif auth(request) == 2 or auth(request) == 3:  # sponsor or student
         return redirect('home')
     else:

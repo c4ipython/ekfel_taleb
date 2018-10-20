@@ -12,6 +12,8 @@ path('kafalaty/del/<int:id>', views.sponserdelete, name='kafalatyDelete'),
 path('kafalat/adminA/<int:id>', views.acceptAdmin, name='adminA'),
 path('kafalat/adminb/<int:id>', views.refuseAdmin, name='adminb'),
 path('kafalat/admind/<int:id>', views.delAdmin, name='admind'),
+path('kafalat/adminRA/<int:id>', views.adminReq_stA, name='adminRA'),
+path('kafalat/adminRB/<int:id>', views.adminReq_stB, name='adminRB'),
 
 
 ]

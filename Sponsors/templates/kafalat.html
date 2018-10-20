@@ -18,7 +18,8 @@ div{
                 {% for i in kT %}
     <div style="border: dashed 2px green; width: 300px;display: inline-block; background-color: lightgreen;" dir="rtl">
 
-                    <h3 scope="row"><a href="req/{{i.id | safe}}" class="button"> كفل الطلب </a></h3>
+                    <!-- <h3 scope="row"><a href="req/{{i.id | safe}}" class="button"> كفل الطلب </a></h3> -->
+                    <h3><button onclick="window.location.href='req/{{i.id | safe}}'"> كفل الطلب </button></h3>
 
                     <!-- <td>{{ i.name }}</td> -->
 
@@ -45,13 +46,13 @@ div{
                       <h3>تفاصيل الطلب:{{ i.info | safe }}</h3>
                       {% if i.req_spon != '' %}
                                     <h3> طلب كفاله: {{ i.req_spon | safe }}</h3>
-                                    <h3 scope="row"><a href="adminA/{{i.id | safe}}" class="button"> قبول الطلبب </a></h3>
-                                    <h3 scope="row"><a href="adminb/{{i.id | safe}}" class="button">رفض لطلب  </a></h3>
+                                      <h3><button onclick="window.location.href='adminA/{{i.id | safe}}'">قبول الطلب  </button></h3>
+                                    <h3><button onclick="window.location.href='adminb/{{i.id | safe}}'"> رفض لطلب  </button></h3>
                                   {% endif %}
 
                                   {% if i.sponser != '' %}
                                                 <h3> الكفيل: {{ i.sponser | safe }}</h3>
-                                                  <h3 scope="row"><a href="admind/{{i.id | safe}}" class="button">حذف الكفيل  </a></h3>
+                                                  <h3><button onclick="window.location.href='admind/{{i.id | safe}}'"> حذف الكفيل  </button></h3>
                                               {% endif %}
 
 
@@ -66,11 +67,12 @@ div{
                 <center><h1>الطلبات الغير مقبوله<br></center>
                 {% for i in kF %}
     <div style="border: dashed 2px green; width: 300px;display: inline-block; background-color: lightgreen;" dir="rtl">
-                    <h3 scope="row">{{ i.id | safe }}</h3>
                     <!-- <td>{{ i.name }}</td> -->
-                    <h3><a href="{{i.id}}">{{ i.title | safe }}</a> </h3>
+                    <h3>{{ i.title | safe }}</h3>
                     <h3>{{ i.info | safe }}</h3>
                     <h3>{{ i.approved | safe }}</h3>
+                    <h3><button onclick="window.location.href='adminRA/{{i.id | safe}}'" name='accept'>قبول الطلب  </button></h3>
+                  <h3><button onclick="window.location.href='adminRB/{{i.id | safe}}'" name='refuse'> رفض لطلب  </button></h3>
 
     </div>
 
