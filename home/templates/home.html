@@ -4,15 +4,27 @@
 {% block content %}
 
   <h1> home page </h1>
-  {% if auth == 4 %}
-<h3><a href="http://127.0.0.1:8000/account/signup_student/">تسجيل طالب</a></h3>
-<h3><a href="http://127.0.0.1:8000/account/signup_sponsor/">تسجيل كفيل</a></h3>
+{% if auth == 4 %}
+<h4> اذا كنت لم يكن لديك حساب </h4>
+<h3><a href="http://127.0.0.1:8000/account/signup_student/" >   سجل كـ طالب  </a></h3>
+<h3><a href="http://127.0.0.1:8000/account/signup_sponsor/"> سجل كـ كفيل </a></h3>
+<h4> اذا كان لديك حساب  </h4>
+<h3><a href="http://127.0.0.1:8000/account/login">تسجيل دخول</a></h3>
+
 {% endif %}
 {% if auth == 2 or auth == 3 %}
 <h3><a href="http://127.0.0.1:8000/account/profile/">البروفايل</a></h3>
+<h3><a href="http://127.0.0.1:8000/account/logout">تسجيل خروج</a></h3>
 <h3><a href="http://127.0.0.1:8000/account/delete_account/">حذف الحساب</a></h3>
 {% endif %}
 {% if auth == 5 or auth == 6 %}
 <p>يرجى الانتظار لحين الموافقه على حسابك </p>
 {% endif %}
+{% if  auth == 2  or  auth == 3 or auth == 1 %}
+<h3><a href="http://127.0.0.1:8000/events/list/"> الانشطة</a></h3>
+{% endif %}
+<h3><a href="http://127.0.0.1:8000/about/">  حول التطبيق  </a></h3>
+<h3><a href="http://127.0.0.1:8000/c4i/">  حول المبادرة  </a></h3>
+<h3><a href="http://127.0.0.1:8000/devteam/"> فريق العمل </a></h3>
+<h3><a href="http://127.0.0.1:8000/contact/"> اتصل بنا </a></h3>
 {% endblock content %}

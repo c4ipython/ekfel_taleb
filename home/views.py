@@ -23,11 +23,11 @@ def contact(request):
             email = form.cleaned_data['email']
             message = form.cleaned_data['message']
             try:
-                send_mail (name, message, email, ['info@example.com'])
+                send_mail (name, message, email, ['info@example.com'])  #يتم وضع ايميل الخاص بالاتصال بادارة الموقع
             except BadHeaderError:
-                msg_er = 'Invalid header found.'
+                msg_er = 'Invalid header found.'  # رسالة في حالة وجود خطأ في الايميل
                 return render (request, "contact.html", {'msg_er': msg_er })
-            msg_ok = 'Success! Thank you for your message.'
+            msg_ok ='تم ارسال رسالتك بنجاح... شكرا لك'
             return  render (request,"contact.html", {'msg_ok': msg_ok })
 
     return render (request, "contact.html", {'form': form })

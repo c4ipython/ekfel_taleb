@@ -4,16 +4,17 @@
 {% block content %}
 
 <h1>Contact Us</h1>
+{#  اذا تمت عملية الارسال بنجاح #}
 {% if msg_ok %}
 <div class="alert alert-success" role="alert" align="right" style="width: 250px; height: 100px;">
   <hr>
    <p class="mb-0">{{msg_ok | safe }}</p>
  </div>
  <div>
- <a href="{% url 'home' %}">go to home</a>
+ <a href="{% url 'home' %}">go to home</a> {# يتم التوجيه الى الصفحة الرئيسية#}
 </div>
 {% endif %}
-
+{# اذا كان هنالك خطأ في عملية الارسال #}
 {% if msg_er %}
 <div class="alert alert-success" role="alert" align="right" style="width: 250px; height: 100px;">
   <hr>
