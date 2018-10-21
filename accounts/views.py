@@ -6,6 +6,7 @@ from django.contrib.auth.admin import User
 from django.views.decorators.csrf import requires_csrf_token
 from accounts.forms import StudentForm
 from accounts.forms import SponsorForm
+from Students.models import Req_st
 # Create your views here.
 
 # اعطاء صلاحيه لكل مستخدم حسب موقعه وحمايه الموقع من التلاعب 
@@ -63,7 +64,7 @@ def signup_sponsor(request):
                     form1 = User.objects.filter(username=request.POST['username'])
                     logout(request)
                     form1.delete()
-                    return render(request, 'signup_sponsor.html', {'msg': 'هنالك خطأ في كتابتك للمعلومات ادناه'})
+                    return render(request, 'signup_sponsor.html', {'form': form2, 'msg': 'هنالك خطأ في كتابتك للمعلومات ادناه'})
 
             else:
                 return render(request, 'signup_sponsor.html', {'form': form2, 'msg': 'This username has already been used'})
@@ -173,3 +174,47 @@ def delete_account(request):
     else:
         return redirect('home')
 
+
+def students(request):
+    if auth(request) == 1: # admin
+        student_app = Students.objects.filter(approved=True)
+        student_not_app = Students.objects.filter(approved=False)
+        return render(request, 'students.html', {'formStudentA': student_app, 'formStudentN': student_not_app})
+    else:
+        return redirect('home')
+
+
+def delAppStudent(request, idd):
+    if auth(request) == 1: # admin
+        student = Students.objects.get(id=idd, approved=True)
+        print(student)
+        student.approved = False
+        student.save()
+        return redirect('students')
+    else:
+        return redirect('home')
+
+
+def stuReq(request, usernames):
+    if auth(request) == 1: # admin
+        not_sponsor = Req_st.objects.filter(sender=usernames, sponser='').exclude(approved=False)
+        sponsor = Req_st.objects.filter(sender=usernames).exclude(sponser='')
+        not_app = Req_st.objects.filter(sender=usernames, approved=False)
+        is_app = Req_st.objects.filter(sender=usernames, approved=True)
+        return render(request, 'view_re.html', {'not_sponsor': not_sponsor, 'sponsor': sponsor, 'not_app': not_app, 'is_app': is_app})
+    else:
+        return redirect('home')
+
+def info(request, id):
+    student = Students.objects.get(id=id)
+    return render(request, 'profile.html', {'student': student, 'ise': True})
+
+
+def add_app(request, usernamee):
+    if auth(request) == 1: # admin
+        student = Students.objects.get(username=usernamee, approved=False)
+        student.approved = True
+        student.save()
+        return redirect('students')
+    else:
+        return redirect('home')

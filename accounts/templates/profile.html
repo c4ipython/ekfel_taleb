@@ -24,6 +24,16 @@
     <br><br>
     your stage :{{student.stage}}
     <p>{{student.up_date}}</p>
+    {% if ise == True %}
+    {% if student.approved == True %}
+    <a href="{% url 'delete_app' student.id %}" style="color:red">الغاء التفعيل</a>
+    <a href="{% url 'stuReq' student.username %}"  style="color:red">طلباته</a>
+    {% endif %}
+    {% if student.approved == False %}
+    <a href="{% url 'add_app' student.username %}" style="color:red">تفعيل</a>
+    {% endif %}
+    
+    {% endif %}
     {% endif %}
 
     {% if sponsor %}

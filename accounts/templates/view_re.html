@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<center>
+    <h1>
+الطلبات الغير مقبوله
+    </h1>
+</center>
+    {% for i in not_app %}
+    <div style="background: #222;color: white;padding: 10px;">
+        <span>title: {{i.title}} </span><br> <span>info {{i.info}}</span>
+        <br>
+    </div>
+    <br><br>
+    {% endfor %}
+    <br><br>
+    <hr>
+    <br>
+    <center>
+        <h1>
+
+طلبات الغير مكفوله
+        </h1>
+    </center>
+    {% for i in not_sponsor %}
+    <div style="background: #222;color: white;padding: 10px;">
+        <span>title: {{i.title}} </span><br> <span>info {{i.info}}</span>
+    
+    </div>
+    <br><br>
+    {% endfor %}
+    <hr>
+    <br>
+    <center>
+            <h1>
+    الطلبات المكفوله
+            </h1>
+        </center>
+        {% for i in sponsor %}
+        <div style="background: #222;color: white;padding: 10px;">
+            <span>title: {{i.title}} </span><br> <span>info {{i.info}}</span>
+            <p> اسم الكفيل {{i.sponser}}</p>
+        </div>
+        <br><br>
+    {% endfor %}
+</body>
+</html>
