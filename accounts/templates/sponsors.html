@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<center>
+    <h1>
+    حسابات الكفلاء المقبوله 
+
+    </h1>
+</center>
+    {% for i in formsponsorA %}
+    <div style="background: #222;color: white;padding: 10px;">
+        <span><a href="{% url 'sponsor_info' i.id %}" style="color:white">username: {{i.username}} </a></span><br> <span>full name {{i.full_name}}</span>
+        <br>
+        
+    </div>
+    <br><br>
+    {% endfor %}
+    <br><br>
+    <hr>
+    <br>
+    <center>
+        <h1>
+
+        حسابات الغير موافق عليها 
+
+        </h1>
+    </center>
+    {% for i in formsponsorN %}
+    <div style="background: #222;color: white;padding: 10px;">
+        <span><a href="{% url 'sponsor_info' i.id %}" style="color:white">username: {{i.username}} </a></span><br> <span>full name {{i.full_name}}</span>
+    
+    </div>
+    <br><br>
+    {% endfor %}
+</body>
+</html>

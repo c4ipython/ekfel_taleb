@@ -8,58 +8,71 @@
     {% if student %}
         your are student
     <br><br>
-    <img src="{{ student.img.url }}" alt="" style="width:300px">
+    {% for i in student %}
+    <img src="{{ i.img.url }}" alt="" style="width:300px">
     <br><br>
-    your username :{{student.username}}
+    your username :{{i.username}}
     <br><br>
-    your name :{{student.full_name}}
+    your name :{{i.full_name}}
     <br><br>
-    your age :{{student.age}}
+    your age :{{i.age}}
     <br><br>
-    your birthDate :{{student.birth_date}}
+    your birthDate :{{i.birth_date}}
     <br><br>
-    your number :{{student.number}}
+    your number :{{i.number}}
     <br><br>
-    your city :{{student.city}}
+    your city :{{i.city}}
     <br><br>
-    your stage :{{student.stage}}
-    <p>{{student.up_date}}</p>
+    your stage :{{i.stage}}
+    <p>{{i.up_date}}</p>
     {% if ise == True %}
-    {% if student.approved == True %}
-    <a href="{% url 'delete_app' student.id %}" style="color:red">الغاء التفعيل</a>
-    <a href="{% url 'stuReq' student.username %}"  style="color:red">طلباته</a>
+    {% if i.approved == True %}
+    <a href="{% url 'delete_app' i.id %}" style="color:red">الغاء التفعيل</a>
+    <a href="{% url 'stuReq' i.username %}"  style="color:red">طلباته</a>
     {% endif %}
-    {% if student.approved == False %}
-    <a href="{% url 'add_app' student.username %}" style="color:red">تفعيل</a>
+    {% if i.approved == False %}
+    <a href="{% url 'add_app' i.username %}" style="color:red">تفعيل</a>
     {% endif %}
     
     {% endif %}
+    {% endfor %}
     {% endif %}
 
     {% if sponsor %}
         your are sponsor
     <br><br>
-    <img src="{{ sponsor.img.url }}" alt="" style="width:300px">
+    {% for i in sponsor%}
+    <img src="{{ i.img.url }}" alt="" style="width:300px">
     <br><br>
-    your username :{{sponsor.username}}
+    your username :{{i.username}}
     <br><br>
-    your name :{{sponsor.full_name}}
+    your name :{{i.full_name}}
     <br><br>
-    your age :{{sponsor.age}}
+    your age :{{i.age}}
     <br><br>
-    your birthDate :{{sponsor.birth_date}}
+    your birthDate :{{i.birth_date}}
     <br><br>
-    your number :{{sponsor.number}}
+    your number :{{i.number}}
     <br><br>
-    your city :{{sponsor.city}}
+    your city :{{i.city}}
     <br><br>
-    your work :{{sponsor.work}}
+    your work :{{i.work}}
     <br><br>
-    your work_locations :{{sponsor.work_locations}}
+    your work_locations :{{i.work_locations}}
     <br><br>
-    your salary :{{sponsor.salary}}
+    your salary :{{i.salary}}
 
-    <p>{{sponsor.up_date}}</p>
+    <p>{{i.up_date}}</p>
+    {% if ise == True %}
+    {% if i.approved == True %}
+    <a href="{% url 'delete_appS' i.id %}" style="color:red">الغاء التفعيل</a>
+    <a href="{% url 'sponsor_request' i.username %}"  style="color:red">كفالاته</a>
+    {% endif %}
+    {% if i.approved == False %}
+    <a href="{% url 'add_appS' i.username %}" style="color:red">تفعيل</a>
+    {% endif %}
+    {% endif %}
+    {% endfor %}
     {% endif %}
 </body>
 </html>

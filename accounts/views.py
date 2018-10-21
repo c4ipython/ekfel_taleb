@@ -147,10 +147,10 @@ def signup_student(request):
 # اظهار المعلومات الشخصيه للمستخدمين مع صلاحيه لمنع التلاعب 
 def profile(request):
     if auth(request) == 3 or auth(request) == 6:  # student
-        student = Students.objects.get(username=request.user)
+        student = Students.objects.filter(username=request.user)
         return render(request, 'profile.html', {'student': student})
     elif auth(request) == 2 or auth(request) == 5:  # sponsor
-        sponsor = Sponsor.objects.get(username=request.user)
+        sponsor = Sponsor.objects.filter(username=request.user)
         return render(request, 'profile.html', {'sponsor': sponsor})
     else:
         return redirect('home')
@@ -175,6 +175,10 @@ def delete_account(request):
         return redirect('home')
 
 
+# نظام اداره الطلبه يعرضهم بشكل جداول 
+# ويمكن الموافقه وحذف الحسابات من خلاله
+
+
 def students(request):
     if auth(request) == 1: # admin
         student_app = Students.objects.filter(approved=True)
@@ -183,6 +187,8 @@ def students(request):
     else:
         return redirect('home')
 
+
+#  عمليه حذف الحساب الطالب 
 
 def delAppStudent(request, idd):
     if auth(request) == 1: # admin
@@ -195,6 +201,19 @@ def delAppStudent(request, idd):
         return redirect('home')
 
 
+# عمليه حذف حساب الكفيل
+def delAppSponsor(request, idd):
+    if auth(request) == 1: # admin
+        sponsor = Sponsor.objects.get(id=idd, approved=True)
+        sponsor.approved = False
+        sponsor.save()
+        return redirect('sponsors')
+    else:
+        return redirect('home')
+
+
+# عرض جميع طلبات طالب معين 
+# وعرضهم بشكل مفصل من طلبات مقبوله وطلبات مكفوله وطلبات غير مكفوله 
 def stuReq(request, usernames):
     if auth(request) == 1: # admin
         not_sponsor = Req_st.objects.filter(sender=usernames, sponser='').exclude(approved=False)
@@ -205,16 +224,64 @@ def stuReq(request, usernames):
     else:
         return redirect('home')
 
+
+# عرض جميع كفالات كفيل معين 
+# وعرضهم بشكل مفصل من كفالات بانتظار الموافقه وكفالاته التي تمت الموافقه عليها سابقا 
+def sponsor_stuReq(request, usernames):
+    if auth(request) == 1: # admin
+        is_sponsor = Req_st.objects.filter(sponser=usernames, approved=True).exclude(disable=True)
+        is_req = Req_st.objects.filter(req_spon=usernames, approved=True).exclude(disable=True)
+        return render(request, 'view_sponsor.html', {'is_sponsor': is_sponsor, 'is_req': is_req})
+    else:
+        return redirect('home')
+
+
+# اظهار معلومات طالب معين
+# مع خاصيه تفعيل او الغاء تفعيل واوبشن لعرض طلباته  
 def info(request, id):
-    student = Students.objects.get(id=id)
-    return render(request, 'profile.html', {'student': student, 'ise': True})
+    if auth(request) == 1: # admin
+        student = Students.objects.filter(id=id)
+        return render(request, 'profile.html', {'student': student, 'ise': True})
+    else:
+        return redirect('home')
+
+# اظهار معلومات كفيل معين 
+# مع خاصيه تفعيل او الغاء التفعيل واوبشن لعرض كفالاته
+def sponsor_info(request, id):
+    if auth(request) == 1: # admin
+        sponsor = Sponsor.objects.filter(id=id)
+        return render(request, 'profile.html', {'sponsor': sponsor, 'ise': True})
+    else:
+        return redirect('home')
 
 
+# عمليه تفعيل حساب طالب معين
 def add_app(request, usernamee):
     if auth(request) == 1: # admin
         student = Students.objects.get(username=usernamee, approved=False)
         student.approved = True
         student.save()
         return redirect('students')
+    else:
+        return redirect('home')
+
+# عمليه تفعيل حساب كفيل معين 
+def add_appSponsor(request, usernamee):
+    if auth(request) == 1: # admin
+        sponsor = Sponsor.objects.get(username=usernamee, approved=False)
+        sponsor.approved = True
+        sponsor.save()
+        return redirect('sponsors')
+    else:
+        return redirect('home')
+
+
+#  نظام عرض جميع الكفلاء بصوره جداول 
+# والتي من خلاله يمكننا تفعيل حسابات والغاء حسابات ومتابعة الحسابات 
+def sponsors(request):
+    if auth(request) == 1: # admin
+        sponsor_app = Sponsor.objects.filter(approved=True)
+        sponsor_not_app = Sponsor.objects.filter(approved=False)
+        return render(request, 'sponsors.html', {'formsponsorA': sponsor_app, 'formsponsorN': sponsor_not_app})
     else:
         return redirect('home')
