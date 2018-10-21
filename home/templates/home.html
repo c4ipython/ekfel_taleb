@@ -34,6 +34,19 @@
 {% endif %}
 <br>
 
+<!-- student -->
+{% if  auth == 3 %}
+<h3 dir="rtl"><a href="http://127.0.0.1:8000/students/add_re/"> اضافة طلب </a></h3>
+<h3 dir="rtl"><a href="http://127.0.0.1:8000/students/view_rq/"> عرض الطلبات </a></h3>
+{% endif %}
+<br>
+<!--  sopnsor  -->
+{% if  auth == 2 %}
+<h3 dir="rtl"><a href="http://127.0.0.1:8000/sponsor/kafalat/"> عرض الطلبات الغير مكفولة </a></h3>
+<h3 dir="rtl"><a href="http://127.0.0.1:8000/sponsor/kafalaty/">  عرض طلباتي </a></h3>
+{% endif %}
+<br>
+
 <h3 dir="rtl"><a href="http://127.0.0.1:8000/about/">  حول التطبيق  </a></h3>
 <h3 dir="rtl"><a href="http://127.0.0.1:8000/c4i/">  حول المبادرة  </a></h3>
 <h3 dir="rtl"><a href="http://127.0.0.1:8000/devteam/"> فريق العمل </a></h3>
