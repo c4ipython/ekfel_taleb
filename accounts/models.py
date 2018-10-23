@@ -72,7 +72,7 @@ class Sponsor(models.Model):
     img = models.FileField(upload_to='docs/', blank=False)
     work = models.CharField(max_length=100, blank=False)
     work_locations = models.CharField(max_length=100, blank=True)
-    salary = models.CharField(max_length=100, blank=False)
+    salary = models.IntegerField(blank=False)
     approved = models.BooleanField(default=False)
     up_date = models.DateField(auto_now_add=True)
     type_user = models.CharField(max_length=50, default='sponsor')
