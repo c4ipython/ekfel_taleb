@@ -14,6 +14,8 @@
     <div style="background: #222;color: white;padding: 10px;">
         <span>title: {{i.title}} </span><br> <span>info {{i.info}}</span>
         <br>
+        <a href="{% url 'ac_req' i.id %}">قبول الطلب</a>
+        <a href="{% url 'del_req' i.id %}">رفض الطلب</a>
     </div>
     <br><br>
     {% endfor %}
@@ -29,7 +31,8 @@
     {% for i in not_sponsor %}
     <div style="background: #222;color: white;padding: 10px;">
         <span>title: {{i.title}} </span><br> <span>info {{i.info}}</span>
-    
+        <br>
+        <a href="{% url 'del_req' i.id %}">حذف الطلب</a>
     </div>
     <br><br>
     {% endfor %}
@@ -44,6 +47,9 @@
         <div style="background: #222;color: white;padding: 10px;">
             <span>title: {{i.title}} </span><br> <span>info {{i.info}}</span>
             <p> اسم الكفيل {{i.sponser}}</p>
+            <br>
+            <a href="{% url 'del_sponsoer' i.id %}">حذف الكفاله</a>
+            <a href="{% url 'del_req' i.id %}">حذف الطلب</a>
         </div>
         <br><br>
     {% endfor %}

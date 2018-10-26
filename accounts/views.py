@@ -183,6 +183,9 @@ def students(request):
     if auth(request) == 1: # admin
         student_app = Students.objects.filter(approved=True)
         student_not_app = Students.objects.filter(approved=False)
+        if request.method == 'POST' and request.POST['search']:
+            student_app = student_app.filter(username__icontains=request.POST['search'])
+            student_not_app = student_not_app.filter(username__icontains=request.POST['search'])
         return render(request, 'students.html', {'formStudentA': student_app, 'formStudentN': student_not_app})
     else:
         return redirect('home')
@@ -216,10 +219,10 @@ def delAppSponsor(request, idd):
 # وعرضهم بشكل مفصل من طلبات مقبوله وطلبات مكفوله وطلبات غير مكفوله 
 def stuReq(request, usernames):
     if auth(request) == 1: # admin
-        not_sponsor = Req_st.objects.filter(sender=usernames, sponser='').exclude(approved=False)
-        sponsor = Req_st.objects.filter(sender=usernames).exclude(sponser='')
-        not_app = Req_st.objects.filter(sender=usernames, approved=False)
-        is_app = Req_st.objects.filter(sender=usernames, approved=True)
+        not_sponsor = Req_st.objects.filter(sender=usernames, sponser='',disable=False).exclude(approved=False)
+        sponsor = Req_st.objects.filter(sender=usernames, disable=False).exclude(sponser='')
+        not_app = Req_st.objects.filter(sender=usernames, approved=False, disable=False)
+        is_app = Req_st.objects.filter(sender=usernames, approved=True, disable=False)
         return render(request, 'view_re.html', {'not_sponsor': not_sponsor, 'sponsor': sponsor, 'not_app': not_app, 'is_app': is_app})
     else:
         return redirect('home')
@@ -230,7 +233,7 @@ def stuReq(request, usernames):
 def sponsor_stuReq(request, usernames):
     if auth(request) == 1: # admin
         is_sponsor = Req_st.objects.filter(sponser=usernames, approved=True).exclude(disable=True)
-        is_req = Req_st.objects.filter(req_spon=usernames, approved=True).exclude(disable=True)
+        is_req = Req_st.objects.filter(req_spon=usernames, approved=True, sponser='').exclude(disable=True)
         return render(request, 'view_sponsor.html', {'is_sponsor': is_sponsor, 'is_req': is_req})
     else:
         return redirect('home')
@@ -282,6 +285,49 @@ def sponsors(request):
     if auth(request) == 1: # admin
         sponsor_app = Sponsor.objects.filter(approved=True)
         sponsor_not_app = Sponsor.objects.filter(approved=False)
+        if request.method == 'POST' and request.POST['search']:
+            sponsor_app = sponsor_app.filter(username__icontains=request.POST['search'])
+            sponsor_not_app = sponsor_not_app.filter(username__icontains=request.POST['search'])
         return render(request, 'sponsors.html', {'formsponsorA': sponsor_app, 'formsponsorN': sponsor_not_app})
     else:
         return redirect('home')
+
+
+def ac_req(request, id):
+    req = Req_st.objects.get(id=id)
+    req.approved = True
+    req.save()
+    return redirect('students')
+
+def del_req(request, id):
+    req = Req_st.objects.get(id=id)
+    req.disable = True
+    req.save()
+    return redirect('students')
+
+def del_sponsor(request, id):
+    req = Req_st.objects.get(id=id)
+    req.sponser = ''
+    req.req_spon = ''
+    req.save()
+    return redirect('students')
+
+def ac_sponsor(request, id):
+    req = Req_st.objects.get(id=id)
+    req.sponser = req.req_spon
+    req.req_spon = ''
+    req.save()
+    return redirect('sponsors')
+
+def del_req_spon(request, id):
+    req = Req_st.objects.get(id=id)
+    req.disable = True
+    req.save()
+    return redirect('sponsors')
+
+def del_sponsor_req(request, id):
+    req = Req_st.objects.get(id=id)
+    req.sponser = ''
+    req.req_spon = ''
+    req.save()
+    return redirect('sponsors')

@@ -5,6 +5,12 @@
     <title>Title</title>
 </head>
 <body>
+        <center>
+                <form method="POST">{% csrf_token %}
+                    <input type="text" placeholder="search" name="search" value="{{request.POST.search}}">
+                    <button type="submit">Search</button>
+                </form>
+            </center>
 <center>
     <h1>
     حسابات الطلاب المقبوله 

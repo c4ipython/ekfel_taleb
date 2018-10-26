@@ -18,5 +18,11 @@ urlpatterns = [
     path('sponsor_request/<str:usernames>', views.sponsor_stuReq, name='sponsor_request'),
     path('student_info/<int:id>', views.info, name='info'),
     path('sponsor_info/<int:id>', views.sponsor_info, name='sponsor_info'),
+    path('ac_req/<int:id>', views.ac_req, name='ac_req'),
+    path('del_req/<int:id>', views.del_req, name='del_req'),
+    path('del_sponsoer/<int:id>', views.del_sponsor, name='del_sponsoer'),
+    path('ac_sponsoer/<int:id>', views.ac_sponsor, name='ac_sponsoer'),
+    path('del_req_sponr/<int:id>', views.del_req_spon, name='del_req_spon'),
+    path('del_spon/<int:id>', views.del_sponsor_req, name='del_spon'),
 
 ]
