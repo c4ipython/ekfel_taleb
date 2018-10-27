@@ -3,6 +3,7 @@ from Students.models import Req_st
 from django.http import HttpResponse
 from django.views.decorators.csrf import requires_csrf_token
 from accounts.views import auth
+from accounts.models import Sponsor
 # Create your views here.
 @requires_csrf_token
 def sponserRequest(request,id):
@@ -11,7 +12,9 @@ def sponserRequest(request,id):
             aa = len(a)
             if aa < 3:
                 e = Req_st.objects.get(id=id)
+                a = Sponsor.objects.get(username=request.user.username)
                 e.req_spon = request.user.username
+                e.sNumberReq = a.phone_number
                 e.save()
                 return redirect('kafalaty')
             else:
@@ -29,6 +32,8 @@ def sponserdelete(request,id):
             d = Req_st.objects.get(id=id)
             d.sponser = ""
             d.req_spon = ""
+            d.sNumberReq = ""
+            d.sNumber = ""
             d.save()
             return redirect('kafalaty')
     elif auth(request) == 1 or auth(request) == 3:  # admin or student
@@ -70,6 +75,8 @@ def acceptAdmin(request,id):
         a = Req_st.objects.get(id=id)
         a.sponser = a.req_spon
         a.req_spon = ""
+        a.sNumber = a.sNumberReq
+        a.sNumberReq = ""
         a.save()
         return redirect('kafalat')
     elif auth(request) == 2 or auth(request) == 3:  # sponsor or student
@@ -84,6 +91,7 @@ def refuseAdmin(request,id):
     if auth(request) == 1:  # admin
         a = Req_st.objects.get(id=id)
         a.req_spon = ""
+        a.sNumberReq = ""
         a.save()
         return redirect('kafalat')
     elif auth(request) == 2 or auth(request) == 3:  # sponsor or student
@@ -100,8 +108,9 @@ def delAdmin(request,id):
     if auth(request) == 1:  # admin
             da = Req_st.objects.get(id=id)
             da.sponser = ""
+            da.sNumber = ""
             da.save()
-            return redirect('kafalaty')
+            return redirect('kafalat')
     elif auth(request) == 2 or auth(request) == 3:  # sponsor or student
         return redirect('home')
     else:

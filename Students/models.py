@@ -7,6 +7,8 @@ class Req_st(models.Model):
     sender=models.CharField(max_length=200)
     date_up=models.DateField(auto_now_add=True)
     sponser=models.CharField(max_length=200,blank=True)
+    sNumber=models.CharField(max_length=200,blank=True)
+    sNumberReq=models.CharField(max_length=200,blank=True)
     approved=models.BooleanField(default=False)
     req_spon=models.CharField(max_length=250,blank=True)
     disable=models.BooleanField(default=False)
