@@ -87,8 +87,8 @@
   <div class="card-body">
 
     <p class="card-text"> {{i.info}}</p>
-    <p class="card-text"> اسم الكفيل :</p>
-    <p class="card-text"> رقم الهاتف:</p>
+    <p class="card-text"> اسم الكفيل : {{ i.sponser | safe }}</p>
+    <p class="card-text"> رقم الهاتف: {{ i.sNumber | safe }}</p>
 
 
     <a href="#" class="card-link">Card link</a>

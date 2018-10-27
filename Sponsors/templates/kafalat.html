@@ -55,8 +55,12 @@ div{
                                   {% endif %}
 
                                   {% if i.sponser != '' %}
+
+
                                                 <h3> الكفيل: {{ i.sponser | safe }}</h3>
+                                                  <h3> رقم هاتف الكفيل: {{ i.sNumber | safe }}</h3>
                                                   <h3><button onclick="window.location.href='admind/{{i.id | safe}}'"> حذف الكفيل  </button></h3>
+
                                               {% endif %}
 
 
