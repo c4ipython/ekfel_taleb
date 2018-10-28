@@ -9,6 +9,8 @@ from accounts.forms import SponsorForm
 from Students.models import Req_st
 # Create your views here.
 
+
+
 # اعطاء صلاحيه لكل مستخدم حسب موقعه وحمايه الموقع من التلاعب 
 
 def auth(request):
@@ -40,6 +42,8 @@ def auth(request):
     else:
         x = 4  # user
     return x
+
+
 
 # تسجيل دخول الخاص بحسابات الكفلاء وارسالهم الى الصفحه الرئيسيه
 #  بعد اتمام عمليه التسجيل للانتظار
@@ -74,6 +78,8 @@ def signup_sponsor(request):
     else:
         return redirect('home')
 
+
+
 # تسجيل دخول الى الحسابات باستخدام اليوزر والباسورد
 @requires_csrf_token
 def logins(request):
@@ -103,6 +109,8 @@ def logins(request):
     else:
         return redirect('home')
 
+
+
 # عمليه تسجيل الخروج مع صلاحيه والتي تعمل مع الاشخاص المسجلين داخل الموقع 
 def logouts(request):
     if not auth(request) == 4:  # not user
@@ -110,6 +118,8 @@ def logouts(request):
         return redirect('home')
     else:
         return redirect('home')
+
+
 
 # تسجيل ك طالب من خلال اليوزر والباسورد ومعلومات اخرى خاصه 
 # ويتم نقله الى الصفحه الرئيسيه للانتظار 
@@ -144,6 +154,7 @@ def signup_student(request):
     else:
         return redirect('home')
 
+
 # اظهار المعلومات الشخصيه للمستخدمين مع صلاحيه لمنع التلاعب 
 def profile(request):
     if auth(request) == 3 or auth(request) == 6:  # student
@@ -154,6 +165,7 @@ def profile(request):
         return render(request, 'profile.html', {'sponsor': sponsor})
     else:
         return redirect('home')
+
 
 # حذف الحسابات وهو بلاصل ليس الحذف وانما تعطيله ليتم الاستفاده من اسباب الحذف 
 # ويتم الحذف حسب صلاحيه المستخدم 
@@ -181,14 +193,15 @@ def delete_account(request):
 
 def students(request):
     if auth(request) == 1: # admin
-        student_app = Students.objects.filter(approved=True)
-        student_not_app = Students.objects.filter(approved=False)
+        student_app = Students.objects.filter(approved=True)[::-1]
+        student_not_app = Students.objects.filter(approved=False)[::-1]
         if request.method == 'POST' and request.POST['search']:
             student_app = student_app.filter(username__icontains=request.POST['search'])
             student_not_app = student_not_app.filter(username__icontains=request.POST['search'])
         return render(request, 'students.html', {'formStudentA': student_app, 'formStudentN': student_not_app})
     else:
         return redirect('home')
+
 
 
 #  عمليه حذف الحساب الطالب 
@@ -219,10 +232,10 @@ def delAppSponsor(request, idd):
 # وعرضهم بشكل مفصل من طلبات مقبوله وطلبات مكفوله وطلبات غير مكفوله 
 def stuReq(request, usernames):
     if auth(request) == 1: # admin
-        not_sponsor = Req_st.objects.filter(sender=usernames, sponser='',disable=False).exclude(approved=False)
-        sponsor = Req_st.objects.filter(sender=usernames, disable=False).exclude(sponser='')
-        not_app = Req_st.objects.filter(sender=usernames, approved=False, disable=False)
-        is_app = Req_st.objects.filter(sender=usernames, approved=True, disable=False)
+        not_sponsor = Req_st.objects.filter(sender=usernames, sponser='',disable=False).exclude(approved=False)[::-1]
+        sponsor = Req_st.objects.filter(sender=usernames, disable=False).exclude(sponser='')[::-1]
+        not_app = Req_st.objects.filter(sender=usernames, approved=False, disable=False)[::-1]
+        is_app = Req_st.objects.filter(sender=usernames, approved=True, disable=False)[::-1]
         return render(request, 'view_re.html', {'not_sponsor': not_sponsor, 'sponsor': sponsor, 'not_app': not_app, 'is_app': is_app})
     else:
         return redirect('home')
@@ -232,8 +245,8 @@ def stuReq(request, usernames):
 # وعرضهم بشكل مفصل من كفالات بانتظار الموافقه وكفالاته التي تمت الموافقه عليها سابقا 
 def sponsor_stuReq(request, usernames):
     if auth(request) == 1: # admin
-        is_sponsor = Req_st.objects.filter(sponser=usernames, approved=True).exclude(disable=True)
-        is_req = Req_st.objects.filter(req_spon=usernames, approved=True, sponser='').exclude(disable=True)
+        is_sponsor = Req_st.objects.filter(sponser=usernames, approved=True).exclude(disable=True)[::-1]
+        is_req = Req_st.objects.filter(req_spon=usernames, approved=True, sponser='').exclude(disable=True)[::-1]
         return render(request, 'view_sponsor.html', {'is_sponsor': is_sponsor, 'is_req': is_req})
     else:
         return redirect('home')
@@ -247,6 +260,7 @@ def info(request, id):
         return render(request, 'profile.html', {'student': student, 'ise': True})
     else:
         return redirect('home')
+
 
 # اظهار معلومات كفيل معين 
 # مع خاصيه تفعيل او الغاء التفعيل واوبشن لعرض كفالاته
@@ -283,8 +297,8 @@ def add_appSponsor(request, usernamee):
 # والتي من خلاله يمكننا تفعيل حسابات والغاء حسابات ومتابعة الحسابات 
 def sponsors(request):
     if auth(request) == 1: # admin
-        sponsor_app = Sponsor.objects.filter(approved=True)
-        sponsor_not_app = Sponsor.objects.filter(approved=False)
+        sponsor_app = Sponsor.objects.filter(approved=True)[::-1]
+        sponsor_not_app = Sponsor.objects.filter(approved=False)[::-1]
         if request.method == 'POST' and request.POST['search']:
             sponsor_app = sponsor_app.filter(username__icontains=request.POST['search'])
             sponsor_not_app = sponsor_not_app.filter(username__icontains=request.POST['search'])
@@ -293,41 +307,75 @@ def sponsors(request):
         return redirect('home')
 
 
+# قبول طلب طالب معين
 def ac_req(request, id):
-    req = Req_st.objects.get(id=id)
-    req.approved = True
-    req.save()
-    return redirect('students')
+    if auth(request) == 1: # admin
+        req = Req_st.objects.get(id=id)
+        req.approved = True
+        req.save()
+        return redirect('students')
+    else:
+        return redirect('home')
 
+
+# حذف طلب طالب معين 
 def del_req(request, id):
-    req = Req_st.objects.get(id=id)
-    req.disable = True
-    req.save()
-    return redirect('students')
+    if auth(request) == 1: # admin
+        req = Req_st.objects.get(id=id)
+        req.disable = True
+        req.save()
+        return redirect('students')
+    else:
+        return redirect('home')
 
+
+
+# حذف كفاله كفيل معين
 def del_sponsor(request, id):
-    req = Req_st.objects.get(id=id)
-    req.sponser = ''
-    req.req_spon = ''
-    req.save()
-    return redirect('students')
+    if auth(request) == 1: # admin
+        req = Req_st.objects.get(id=id)
+        req.sponser = ''
+        req.req_spon = ''
+        req.save()
+        return redirect('students')
+    else:
+        return redirect('home')
 
+
+
+# قبول طلب كفل كفيل معين 
 def ac_sponsor(request, id):
-    req = Req_st.objects.get(id=id)
-    req.sponser = req.req_spon
-    req.req_spon = ''
-    req.save()
-    return redirect('sponsors')
+    if auth(request) == 1: # admin
+        req = Req_st.objects.get(id=id)
+        req.sponser = req.req_spon
+        req.req_spon = ''
+        req.save()
+        return redirect('sponsors')
+    else:
+        return redirect('home')
 
+
+
+# حذف طلب من صفحه الكفيل وارجاعه الصفحه الكفلاء 
 def del_req_spon(request, id):
-    req = Req_st.objects.get(id=id)
-    req.disable = True
-    req.save()
-    return redirect('sponsors')
+    if auth(request) == 1: # admin
+        req = Req_st.objects.get(id=id)
+        req.disable = True
+        req.save()
+        return redirect('sponsors')
+    else:
+        return redirect('home')
 
+
+
+# حذف كفاله كفيل معين
 def del_sponsor_req(request, id):
-    req = Req_st.objects.get(id=id)
-    req.sponser = ''
-    req.req_spon = ''
-    req.save()
-    return redirect('sponsors')
+    if auth(request) == 1: # admin
+        req = Req_st.objects.get(id=id)
+        req.sponser = ''
+        req.req_spon = ''
+        req.save()
+        return redirect('sponsors')
+    else:
+        return redirect('home')
+
