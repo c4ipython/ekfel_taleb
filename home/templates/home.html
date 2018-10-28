@@ -34,7 +34,11 @@
 <h3 dir="rtl"><a href="http://127.0.0.1:8000/events/list/"> الانشطة</a></h3>
 {% endif %}
 <br>
-
+{% if auth == 1 %}
+<h3 dir="rtl"><a href="http://127.0.0.1:8000/dashboard"> صفحة الادمن </a></h3>
+<h3 dir="rtl"><a href="http://127.0.0.1:8000/account/logout">تسجيل خروج</a></h3>
+{% endif %}
+<br>
 <!-- student -->
 {% if  auth == 3 %}
 <h3 dir="rtl"><a href="http://127.0.0.1:8000/students/add_re/"> اضافة طلب </a></h3>

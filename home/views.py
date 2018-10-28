@@ -44,3 +44,8 @@ def c4i(request):
 @requires_csrf_token
 def devteam(request):
     return render(request, 'devteam.html')
+
+
+@requires_csrf_token
+def dashboard(request):
+    return render(request, 'dashboard.html')    

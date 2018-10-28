@@ -9,5 +9,6 @@ urlpatterns = [
     path ('about/',views.about,name='about'),
     path ('c4i/', views.c4i, name='c4i'),
     path ('devteam/',views.devteam,name='devteam'),
+    path ('dashboard',views.dashboard,name='dashboard')
 
 ]
