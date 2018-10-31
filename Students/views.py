@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,get_object_or_404
 from django.http import HttpResponse
 from Students.models import Req_st
 from django.views.decorators.csrf import requires_csrf_token
@@ -15,15 +15,14 @@ from accounts.views import auth
 def add_req(request):
     if auth(request) == 3:  # student
         if request.method=='POST':
-              x=Req_st.objects.filter(sender=request.user)
-              if len(x) < 3:
-                   title=request.POST.get('title')
-                   info=request.POST.get('info')
-                   reqs=Req_st(title=title,info=info,sender=request.user)
-                   reqs.save()
-                   return redirect('view_rq')
-              else:
-                   return redirect('home')
+              # x=get_object_or_404(Req_st,sender=request.user)
+              # if len(x) < 3:
+              title=request.POST.get('title')
+              info=request.POST.get('info')
+              reqs=Req_st(title=title,info=info,sender=request.user)
+              reqs.save()
+              return redirect('view_rq')
+
         else:
             redirect('home')
         return render(request,"add_re.html")

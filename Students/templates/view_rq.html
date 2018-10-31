@@ -65,7 +65,7 @@
   <div class="card-body">
 
     <p class="card-text">{{i.info}}</p>
-{{i.id}}
+
 
 </div>
 <h2> -------------------- </h2>
@@ -79,7 +79,6 @@
     طلبات مكفولة
   </h3>
   <div class='card-group'>
-    {% for i in approved %}
     <div class="card bg-light text-dark" >
       <div class="card-header">
         {{i.title}}
@@ -91,11 +90,9 @@
     <p class="card-text"> رقم الهاتف: {{ i.sNumber | safe }}</p>
 
 
-    <a href="#" class="card-link">Card link</a>
   </div>
 </div>
 <h2> -------------------- </h2>
-{% endfor %}
 </div>
 {% endblock %}
 </body>
