@@ -2,8 +2,8 @@
 
 
 {% block content %}
-
-<h1>Contact Us</h1>
+<br>
+<h1 align="center">اتصل بنا</h1>
 {#  اذا تمت عملية الارسال بنجاح #}
 {% if msg_ok %}
 <div class="alert alert-success" role="alert" align="right" style="width: 250px; height: 100px;">
@@ -23,14 +23,16 @@
 {% endif %}
 <br>
 {%if not msg_ok or not msg_ok%}
+<div align="center" dir="rtl" style="margin-right:50 px ; padding: 50 px">
 <form method="post">
     {% csrf_token %}
     {{ form.as_p | safe }}
     <div class="form-actions">
-      <button type="submit">Send</button>
+      <button type="submit">ارسال</button>
     </div>
 </form>
+</div>
 {% endif %}
-
+<br>
 <h3 dir="rtl" align="center"><a href="http://127.0.0.1:8000/" >   العودة للصفحة الرئيسية  </a></h3>
 {% endblock content %}

@@ -1,9 +1,125 @@
-{#{% extends 'base.html' %}#}
+{#{% extends 'base.html' %}#} {% block content %}
+<style>
+  /* Three columns side by side */
 
+  .column {
+    float: left;
+    width: 33.3%;
+    margin-bottom: 16px;
+    padding: 0 8px;
+  }
 
-{% block content %}
+  /* Display the columns below each other instead of side by side on small screens */
 
-  <h1> Developers Team page </h1>
+  @media screen and (max-width: 650px) {
+    .column {
+      width: 100%;
+      display: block;
+    }
+  }
 
-<h3 dir="rtl" align="center"><a href="http://127.0.0.1:8000/" >  العودة للصفحة الرئيسية  </a></h3>
+  /* Add some shadows to create a card effect */
+
+  .card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  }
+
+  /* Some left and right padding inside the container */
+
+  .container_t {
+    padding: 0 16px;
+  }
+
+  /* Clear floats */
+
+  .container_t::after,
+  .row::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+
+  .title {
+    color: grey;
+  }
+
+  .button {
+    border: none;
+    outline: 0;
+    display: inline-block;
+    padding: 8px;
+    color: white;
+    background-color: #000;
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+  }
+
+  .button:hover {
+    background-color: #555;
+  }
+</style>
+
+<br>
+<h1 align="center"> فريق العمل </h1>
+<br>
+<div class="row" align="center">
+  <div class="column">
+    <div class="card">
+      <img src="/media/docs/smile_smiley.png" alt="Haider" style="width:15%">
+      <div class="container_t">
+        <h2>Haider Bahaa</h2>
+        <p class="title"> Project Manegar </p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="/media/docs/smile_smiley.png" alt="Khetam" style="width:15%">
+      <div class="container_t">
+        <h2> Khetam Edaan</h2>
+        <p class="title">backend</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="column">
+    <div class="card">
+      <img src="/media/docs/smile_smiley.png" alt="Ali" style="width:15%">
+      <div class="container_t">
+        <h2> Ali Jaseb</h2>
+        <p class="title">backend </p>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="/media/docs/smile_smiley.png" alt="Rand" style="width:15%">
+      <div class="container_t">
+        <h2>Rand Mustafa </h2>
+        <p class="title">backend</p>
+      </div>
+    </div>
+  </div>
+  <div class="column">
+    <div class="card">
+      <img src="/media/docs/smile_smiley.png" alt="Zainab" style="width:15%">
+      <div class="container_t">
+        <h2>Zainab Emad</h2>
+        <p class="title">backend</p>
+      </div>
+    </div>
+  </div>
+  <div class="column">
+    <div class="card">
+      <img src="/media/docs/smile_smiley.png" alt="Sherin" style="width:15%">
+      <div class="container_t">
+        <h2>Sherin Ali</h2>
+        <p class="title">backend</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<br>
+<h3 dir="rtl" align="center">
+  <a href="http://127.0.0.1:8000/"> العودة للصفحة الرئيسية </a>
+</h3>
 {% endblock content %}

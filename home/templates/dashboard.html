@@ -1,14 +1,72 @@
 {#{% extends 'base.html' %}#}
 
+<link rel="stylesheet" type="text/css" href="static/css/style.css">
 
+<body>
 {% block content %}
+<br>
+  <h1 align="center"> Dashboard  </h1>
 
-  <h1> DashBoard Admin page </h1>
+  <div id="container">
+
+    <div id="contents">
+
+      <div>
+
+        <div id="metro-array" style="display: inline-block;">
+
+          <div style="width: 230px; height: 230px; float: left; margin-left: 10px">
+
+            <a class="metro-tile" style="cursor: pointer; width: 230px; height: 110px; display: block;  background-color: #ffbe76; ; color: rgb(10, 10, 10); margin-bottom: 10px;" href="http://127.0.0.1:8000/events/list/" > <br> <h3  align="center"> الانشطة </h3>
+            </a>
+
+            <a class="metro-tile" style="cursor: pointer; width: 110px; height: 110px; margin-right: 10px; display: block; float: left; background-color: #10ac84; color: rgb(10, 10, 10)" href="http://127.0.0.1:8000/sponsor/kafalat/">
+            <br>  <h3 align="center"  >  الكفالات </h3>
+            </a>
+            <a class="metro-tile" style="cursor: pointer; width: 110px; height: 110px; display: block; background-color: #7ed6df; float: right; color: rgb(10, 10, 10);" href="http://127.0.0.1:8000/students/view_rq/ ">
+            <br>  <h3 align="center" >   الطلبات  </h3>
+            </a>
+          </div>
+
+          <div style="width: 230px; height: 230px; float: left; margin-left: 10px">
+
+            <a class="metro-tile" style="cursor: pointer; width: 230px; height: 230px; display: block; background-color: #9b59b6; color: rgb(10, 10, 10)" href="http://127.0.0.1:8000/"> <br> <br> <br> <br>
+              <h3  align="center">  العودة للصفحة الرئيسية  </h3>
+            </a>
+
+          </div>
+
+          <div style="width: 230px; height: 230px; float: left; margin-left: 10px">
+
+            <a class="metro-tile" style="cursor: pointer; width: 230px; height: 110px; display: block;  background-color: #e74c3c; color: rgb(10, 10, 10); margin-bottom: 10px;" href="http://127.0.0.1:8000/events/add/" > <br> <h3  align="center">اضافة نشاط</h3>
+            </a>
+
+            <a class="metro-tile" style="cursor: pointer; width: 110px; height: 110px; margin-right: 10px; display: block; float: left; background-color: #27ae60; color: rgb(10, 10, 10)" href="http://127.0.0.1:8000/account/sponsor/">
+            <br>  <h3 align="center"  >  الكفلاء </h3>
+            </a>
+            <a class="metro-tile" style="cursor: pointer; width: 110px; height: 110px; display: block; background-color: #3498db; float: right; color: rgb(10, 10, 10);" href="http://127.0.0.1:8000/account/students/">
+            <br>   <h3 align="center" >   الطلاب  </h3>
+            </a>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
 
 
-<h3 dir="rtl" align="center"><a href="http://127.0.0.1:8000/account/students/ " >  عرض الطلاب  </a></h3>
+
+
+
+
+
+<!-- <h3 dir="rtl" align="center"><a href="http://127.0.0.1:8000/account/students/ " >  عرض الطلاب  </a></h3>
 <h3 dir="rtl" align="center"><a href="http://127.0.0.1:8000/account/sponsor/  " > عرض الكفلاء </a></h3>
-<h3 dir="rtl" align="center"><a href="http://127.0.0.1:8000/events/add/" > اضافة نشاط </a></h3>
-<h3 dir="rtl" align="center"><a href="http://127.0.0.1:8000/" >  العودة للصفحة الرئيسية  </a></h3>
+<h3 dir="rtl" align="center"><a href="http://127.0.0.1:8000/events/add/" > اضافة نشاط </a></h3> -->
+<!-- <h3 dir="rtl" align="center"><a href="http://127.0.0.1:8000/" >  العودة للصفحة الرئيسية  </a></h3> -->
 
 {% endblock content %}
+<script src="static/js/tileJs.js" type="text/javascript"></script>
+</body>
