@@ -15,13 +15,15 @@ from accounts.views import auth
 def add_req(request):
     if auth(request) == 3:  # student
         if request.method=='POST':
-              # x=get_object_or_404(Req_st,sender=request.user)
-              # if len(x) < 3:
-              title=request.POST.get('title')
-              info=request.POST.get('info')
-              reqs=Req_st(title=title,info=info,sender=request.user)
-              reqs.save()
-              return redirect('view_rq')
+              y=Req_st.objects.filter(approved=False,disable=False)
+              if len(y) < 3:
+                  title=request.POST.get('title')
+                  info=request.POST.get('info')
+                  reqs=Req_st(title=title,info=info,sender=request.user)
+                  reqs.save()
+                  return redirect('view_rq')
+              else:
+                 return redirect('home')
 
         else:
             redirect('home')
