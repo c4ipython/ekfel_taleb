@@ -189,15 +189,31 @@ def delete_account(request):
 
 # نظام اداره الطلبه يعرضهم بشكل جداول 
 # ويمكن الموافقه وحذف الحسابات من خلاله
-
-
 def students(request):
     if auth(request) == 1: # admin
+        # عمليه تفعيل او الغاء تفعيل حساب او اكثر من حساب في وقت واحد 
+        if request.GET:
+            for i in request.GET:
+                print(request.GET[i])
+                if request.GET[i] == 'a':
+                    studente = Students.objects.get(id=int(i), approved=True)
+                    studente.approved = False
+                    studente.save()
+                elif request.GET[i] == 'n':
+                    studente = Students.objects.get(id=int(i), approved=False)
+                    studente.approved = True
+                    studente.save()
+            return redirect('students')
+        print(request.GET.status_code)
+        
+
+        # عمليه بحث عن حساب او اكثر من حساب 
         student_app = Students.objects.filter(approved=True)[::-1]
         student_not_app = Students.objects.filter(approved=False)[::-1]
+
         if request.method == 'POST' and request.POST['search']:
-            student_app = student_app.filter(username__icontains=request.POST['search'])
-            student_not_app = student_not_app.filter(username__icontains=request.POST['search'])
+            student_app = Students.objects.filter(username__icontains=request.POST['search'])
+            student_not_app = Students.objects.filter(username__icontains=request.POST['search'])
         return render(request, 'students.html', {'formStudentA': student_app, 'formStudentN': student_not_app})
     else:
         return redirect('home')
@@ -297,11 +313,26 @@ def add_appSponsor(request, usernamee):
 # والتي من خلاله يمكننا تفعيل حسابات والغاء حسابات ومتابعة الحسابات 
 def sponsors(request):
     if auth(request) == 1: # admin
+        # عمليه تفعيل او الغاء تفعيل اكثر من حساب في وقت واحد 
+        if request.GET:
+            for i in request.GET:
+                print(request.GET[i])
+                if request.GET[i] == 'a':
+                    sponsors = Sponsor.objects.get(id=int(i), approved=True)
+                    sponsors.approved = False
+                    sponsors.save()
+                elif request.GET[i] == 'n':
+                    sponsors = Sponsor.objects.get(id=int(i), approved=False)
+                    sponsors.approved = True
+                    sponsors.save()
+            return redirect('sponsors')
+
+        # عمليه بحث شخص او عدة اشخاص 
         sponsor_app = Sponsor.objects.filter(approved=True)[::-1]
         sponsor_not_app = Sponsor.objects.filter(approved=False)[::-1]
         if request.method == 'POST' and request.POST['search']:
-            sponsor_app = sponsor_app.filter(username__icontains=request.POST['search'])
-            sponsor_not_app = sponsor_not_app.filter(username__icontains=request.POST['search'])
+            sponsor_app = Sponsor.objects.filter(username__icontains=request.POST['search'])
+            sponsor_not_app = Sponsor.objects.filter(username__icontains=request.POST['search'])
         return render(request, 'sponsors.html', {'formsponsorA': sponsor_app, 'formsponsorN': sponsor_not_app})
     else:
         return redirect('home')
@@ -343,6 +374,8 @@ def del_sponsor(request, id):
 
 
 
+
+
 # قبول طلب كفل كفيل معين 
 def ac_sponsor(request, id):
     if auth(request) == 1: # admin
@@ -378,4 +411,3 @@ def del_sponsor_req(request, id):
         return redirect('sponsors')
     else:
         return redirect('home')
-

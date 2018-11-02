@@ -18,14 +18,18 @@
 
     </h1>
 </center>
-    {% for i in formsponsorA %}
+<form method="GET">
+        <button type="submit">الغاء التفعيل</button>
+    {% for ii in formsponsorA %}
     <div style="background: #222;color: white;padding: 10px;">
-        <span><a href="{% url 'sponsor_info' i.id %}" style="color:white">username: {{i.username}} </a></span><br> <span>full name {{i.full_name}}</span>
+        <span><a href="{% url 'sponsor_info' ii.id %}" style="color:white">username: {{ii.username}} </a></span><br> <span>full name {{ii.full_name}}</span>
+        <input type="checkbox" name="{{ii.id}}" value="a"> الغاء تفعيل <br>
         <br>
         
     </div>
     <br><br>
     {% endfor %}
+</form>
     <br><br>
     <hr>
     <br>
@@ -36,12 +40,15 @@
 
         </h1>
     </center>
+    <form action="" method="GET">
+            <button type="submit">تفعيل</button>
     {% for i in formsponsorN %}
     <div style="background: #222;color: white;padding: 10px;">
         <span><a href="{% url 'sponsor_info' i.id %}" style="color:white">username: {{i.username}} </a></span><br> <span>full name {{i.full_name}}</span>
-    
+        <input type="checkbox" name="{{i.id}}" value="n">تفعيل<br>
     </div>
     <br><br>
     {% endfor %}
+    </form>
 </body>
 </html>
