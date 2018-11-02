@@ -204,7 +204,6 @@ def students(request):
                     studente.approved = True
                     studente.save()
             return redirect('students')
-        print(request.GET.status_code)
         
 
         # عمليه بحث عن حساب او اكثر من حساب 
