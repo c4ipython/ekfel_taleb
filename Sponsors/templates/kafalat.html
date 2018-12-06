@@ -42,12 +42,14 @@ div{
       {% for i in kta %}
 
 
-
+    {% if i.req_spon != '' or i.sponser != '' %}
       <div style="border: dashed 2px green; width: 300px;display: inline-block; background-color: lightgreen;" dir="rtl">
 
                         <h3>عنوان الطلب:{{ i.title | safe }} </h3>
 
                       <h3>تفاصيل الطلب:{{ i.info | safe }}</h3>
+                        {% endif %}
+
                       {% if i.req_spon != '' %}
                                     <h3> طلب كفاله: {{ i.req_spon | safe }}</h3>
                                       <h3><button onclick="window.location.href='adminA/{{i.id | safe}}'"> قبول الطلب الكفاله </button></h3>
@@ -57,11 +59,13 @@ div{
                                   {% if i.sponser != '' %}
 
 
+
                                                 <h3> الكفيل: {{ i.sponser | safe }}</h3>
                                                   <h3> رقم هاتف الكفيل: {{ i.sNumber | safe }}</h3>
                                                   <h3><button onclick="window.location.href='admind/{{i.id | safe}}'"> حذف الكفيل  </button></h3>
 
                                               {% endif %}
+
 
 
 
