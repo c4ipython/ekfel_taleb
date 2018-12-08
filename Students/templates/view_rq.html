@@ -65,6 +65,13 @@
   <div class="card-body">
 
     <p class="card-text">{{i.info}}</p>
+    <br>
+    {% if auth == 1 %}
+    <a href="del/{{i.id  | safe}}" class="card-link">حذف</a>
+
+
+    {% endif %}
+
 
 
 </div>

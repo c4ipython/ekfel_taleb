@@ -48,7 +48,7 @@ def view_req(request):
         return render(request,'view_rq.html',{'approved':approved,'waited':waited , 'auth':auth(request)})
     elif auth(request) == 1:  # admin
         waited=Req_st.objects.filter(approved=False,disable=False)
-        approved=Req_st.objects.filter(approved=True)
+        approved=Req_st.objects.filter(approved=True,disable=False)
 
         return render(request,'view_rq.html',{'approved':approved,'waited':waited ,'auth':auth(request)})
 
