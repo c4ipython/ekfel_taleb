@@ -42,15 +42,16 @@ def view_req(request):
     if auth(request) == 3:  # student
         waited=''
         approved=''
-
+        sponsed=''
         waited=Req_st.objects.filter(approved=False,sender=request.user,disable=False)
-        approved=Req_st.objects.filter(approved=True,sender=request.user)
+        approved=Req_st.objects.filter(approved=True,sender=request.user,sponser='',disable=False)
+        sponsed=Req_st.objects.filter(approved=True,sender=request.user,disable=False)
         return render(request,'view_rq.html',{'approved':approved,'waited':waited , 'auth':auth(request)})
     elif auth(request) == 1:  # admin
         waited=Req_st.objects.filter(approved=False,disable=False)
-        approved=Req_st.objects.filter(approved=True,disable=False)
-
-        return render(request,'view_rq.html',{'approved':approved,'waited':waited ,'auth':auth(request)})
+        approved=Req_st.objects.filter(approved=True, sponser='',disable=False)
+        sponsed=Req_st.objects.filter(approved=True,disable=False).exclude(sponser__exact='')
+        return render(request,'view_rq.html',{'sponsed':sponsed,'approved':approved,'waited':waited ,'auth':auth(request)})
 
     # elif auth(request) == 2:  # sponsor
     #     return redirect('home')

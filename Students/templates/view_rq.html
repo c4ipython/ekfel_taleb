@@ -22,7 +22,7 @@
 
       <p class="card-text">{{i.info}}</p>
       {% if auth == 1 %}
-      <a href="{{i.id  | safe}}" class="card-link">مواقفة</a>
+      <a href="{{i.id  | safe}}" class="card-link">موافقة</a>
       <br>
 
       <a href="del/{{i.id  | safe}}" class="card-link">حذف</a>
@@ -86,9 +86,11 @@
     طلبات مكفولة
   </h3>
   <div class='card-group'>
+    {% for i in sponsed %}
     <div class="card bg-light text-dark" >
       <div class="card-header">
         {{i.title}}
+
       </div>
   <div class="card-body">
 
@@ -96,10 +98,16 @@
     <p class="card-text"> اسم الكفيل : {{ i.sponser | safe }}</p>
     <p class="card-text"> رقم الهاتف: {{ i.sNumber | safe }}</p>
 
+    <br>
+    {% if auth == 1 %}
+    <a href="del/{{i.id  | safe}}" class="card-link">حذف</a>
 
-  </div>
+
+    {% endif %}
+  </div><h2> -------------------- </h2>
+  {%endfor%}
 </div>
-<h2> -------------------- </h2>
+
 </div>
 {% endblock %}
 </body>
