@@ -11,11 +11,11 @@ from accounts.models import Sponsor
 @requires_csrf_token
 def sponserRequest(request,id):
     if auth(request) == 2:  # sponsor
-            a = Req_st.objects.filter(req_spon=request.user)
+            a = Req_st.objects.filter(req_spon=request.user,disable = False)
             aa = len(a)
             if aa < 3:
-                e = Req_st.objects.get(id=id)
-                a = Sponsor.objects.get(username=request.user.username)
+                e = Req_st.objects.get(id=id,disable = False)
+                a = Sponsor.objects.get(username=request.user.username,disable = False)
                 e.req_spon = request.user.username
                 e.sNumberReq = a.phone_number
                 e.save()
@@ -33,7 +33,7 @@ def sponserRequest(request,id):
 @requires_csrf_token
 def sponserdelete(request,id):
     if auth(request) == 2:  # sponsor
-            d = Req_st.objects.get(id=id)
+            d = Req_st.objects.get(id=id,disable = False)
             d.sponser = ""
             d.req_spon = ""
             d.sNumberReq = ""
@@ -83,7 +83,7 @@ def displayMyKafalat(request):
 @requires_csrf_token
 def acceptAdmin(request,id):
     if auth(request) == 1:  # admin
-        a = Req_st.objects.get(id=id)
+        a = Req_st.objects.get(id=id,disable = False)
         a.sponser = a.req_spon
         a.req_spon = ""
         a.sNumber = a.sNumberReq
@@ -101,7 +101,7 @@ def acceptAdmin(request,id):
 @requires_csrf_token
 def refuseAdmin(request,id):
     if auth(request) == 1:  # admin
-        a = Req_st.objects.get(id=id)
+        a = Req_st.objects.get(id=id,disable = False)
         a.req_spon = ""
         a.sNumberReq = ""
         a.save()
@@ -117,7 +117,7 @@ def refuseAdmin(request,id):
 @requires_csrf_token
 def delAdmin(request,id):
     if auth(request) == 1:  # admin
-            da = Req_st.objects.get(id=id)
+            da = Req_st.objects.get(id=id,disable = False)
             da.sponser = ""
             da.sNumber = ""
             da.save()
@@ -133,7 +133,7 @@ def delAdmin(request,id):
 @requires_csrf_token
 def adminReq_stA(request,id):
     if auth(request) == 1:  # admin
-            a = Req_st.objects.get(id=id)
+            a = Req_st.objects.get(id=id,disable = False)
             a.approved = True
             a.save()
             return redirect('kafalat')
@@ -148,7 +148,7 @@ def adminReq_stA(request,id):
 @requires_csrf_token
 def adminReq_stB(request,id):
     if auth(request) == 1:  # admin
-            a = Req_st.objects.get(id=id)
+            a = Req_st.objects.get(id=id,disable = False)
             a.disable = True
             a.save()
             return redirect('kafalat')
