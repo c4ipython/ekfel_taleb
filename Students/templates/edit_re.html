@@ -8,8 +8,8 @@
   {% block body %}
 <form method="POST">
   {% csrf_token %}
-<input type="text"   name="title" required  value= "{{m.title}}" >
-<input type="text"   name="info"   required value= "{{m.info}}" >
+<input type="text"   name="title" required  value= "{{m.title |safe}}" >
+<input type="text"   name="info"   required value= "{{m.info | safe}}" >
 <input type="submit" value="update">
 </form>
 {% endblock %}

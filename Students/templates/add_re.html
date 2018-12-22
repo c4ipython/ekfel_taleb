@@ -8,8 +8,8 @@
   {% block body %}
 <form method="POST">
   {% csrf_token %}
-<input type="text" placeholder="عنوان الطلب" name="title" required>
-<input type="text" placeholder="تفاصيل الطلب" name="info" required>
+<input type="text" placeholder="عنوان الطلب" name="title " required |safe >
+<input type="text" placeholder="تفاصيل الطلب" name="info   " required  |safe>
 <input type="submit" value="نشر الطلب">
 </form>
 {% endblock %}
