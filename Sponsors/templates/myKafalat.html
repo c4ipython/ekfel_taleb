@@ -16,41 +16,36 @@ div{
 
 </style>
 </head>
-
 <body>
 
+
+
     {% for i in ma %}
-        <div id='vv'>
-          <h3>not approved</h3>
-                  <h3><a href="{{i.id}}">{{ i.title | safe }}</a> </h3>
-                  <h3>{{ i.info | safe }}</h3>
-                  <h3>{{ i.sender | safe }}</h3>
-                    <h3> req: {{ i.req_spon | safe }}</h3>
-                    <h3><button onclick="window.location.href='del/{{i.id | safe}}'">حذف الكفاله </button></h3>
+      <div style='display: inline-block;' id='vv'>
+          <h5>طلبات لم يتم الموافقه على كفالته*ا*</h5>
+          <h3>اسم الطلب: {{ i.title | safe }}</h3>
+          <h3>معلومات الطلب: {{ i.info | safe }}</h3>
+          <h3> اسم طالب الكفاله: {{ i.req_spon | safe }}</h3>
+          <!-- <h3>{{ i.sender | safe }}</h3> -->
+          <h3><button onclick="window.location.href='del/{{i.id | safe}}'">حذف الكفاله </button></h3>
+      </div>
+    {% endfor %}
 
 
-        </div>
-
-{% endfor %}
-  <br/>
-
-        {% for i in m %}
-  <br/>
-
-                <div>
-                  <h3> approved</h3>
-                        <h3><a href="{{i.id}}">{{ i.title | safe }}</a> </h3>
-                        <h3>{{ i.info | safe }}</h3>
-                        <h3>{{ i.sender | safe }}</h3>
-                          <h3> sponsor: {{ i.sponser | safe }}</h3>
-                            <h3> phone number: {{ i.sNumber | safe }}</h3>
-
-                </div>
 
 
-{% endfor %}
+    {% for i in m %}
+      <div style='display: inline-block;'>
+          <h5>*طلبات تمت الموافقه على كفالتها*</h5>
+          <h3>اسم الطلب: {{ i.title | safe }}</h3>
+          <h3>معلومات الطلب: {{ i.info | safe }}</h3>
+          <!-- <h3>{{ i.sender | safe }}</h3> -->
+          <h3> اسم الكفيل: {{ i.sponser | safe }}</h3>
+          <h3> رقم هاتف الكفيل: {{ i.sNumber | safe }}</h3>
+      </div>
+    {% endfor %}
+
 
 
 </body>
-
 </html>

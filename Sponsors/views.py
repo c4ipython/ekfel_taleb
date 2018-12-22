@@ -5,6 +5,9 @@ from django.views.decorators.csrf import requires_csrf_token
 from accounts.views import auth
 from accounts.models import Sponsor
 # Create your views here.
+
+
+
 @requires_csrf_token
 def sponserRequest(request,id):
     if auth(request) == 2:  # sponsor
@@ -26,6 +29,7 @@ def sponserRequest(request,id):
 
 
 
+
 @requires_csrf_token
 def sponserdelete(request,id):
     if auth(request) == 2:  # sponsor
@@ -42,16 +46,23 @@ def sponserdelete(request,id):
         return redirect('home')
 
 
+
+
 @requires_csrf_token
 def displayKafalat(request):
-    if auth(request) == 2 or auth(request) == 1:  # sponsor or admin
-        kta = Req_st.objects.filter(approved = True)
+    if auth(request) == 2:  #sponsor
         kT = Req_st.objects.filter(sponser='',req_spon='',approved = True,disable = False)
-        kF = Req_st.objects.filter(sponser='',req_spon='',approved = False,disable = False)
-
-        return render(request, 'kafalat.html',{'kT':kT, 'kF': kF, 'kta':kta, 'auth': auth(request)})
+        return render(request, 'kafalat.html',{'kT':kT})
+    elif auth(request) == 1: #admin
+        kta = Req_st.objects.filter(approved = True,sponser='',req_spon='',disable = False)
+        ktb = Req_st.objects.filter(approved = True,sponser='',disable = False).exclude(req_spon__exact='')
+        ktc = Req_st.objects.filter(approved = True,req_spon='',disable = False).exclude(sponser__exact='')
+        kf = Req_st.objects.filter(approved = False,disable = False)
+        return render(request, 'kafalat.html',{ 'kta':kta, 'ktb':ktb, 'ktc':ktc, 'kf':kf})
     else:
         return redirect('home')
+
+
 
 
 @requires_csrf_token
@@ -86,6 +97,7 @@ def acceptAdmin(request,id):
 
 
 
+
 @requires_csrf_token
 def refuseAdmin(request,id):
     if auth(request) == 1:  # admin
@@ -98,7 +110,6 @@ def refuseAdmin(request,id):
         return redirect('home')
     else:
         return redirect('home')
-
 
 
 
@@ -130,6 +141,7 @@ def adminReq_stA(request,id):
         return redirect('home')
     else:
         return redirect('home')
+
 
 
 
