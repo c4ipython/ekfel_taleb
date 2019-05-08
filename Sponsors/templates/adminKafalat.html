@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<style>
+
+div{
+
+  border-style: solid;
+  border-width: 1px;
+  width : 10%;
+}
+</style>
+</head>
+<body dir="rtl">
+
+
+
+
+
+              {% for i in kta %} 
+      <div style="border: dashed 2px green; width: 300px;display: inline-block; background-color: lightgreen;" dir="rtl">
+              <h5>*طلبقات مقبوله من الادمن وليس لها كفيل ولا طلب كفاله*</h5>
+              <h3>عنوان الطلب:{{ i.title | safe }} </h3>
+              <h3>تفاصيل الطلب:{{ i.info | safe }}</h3>
+      </div>
+              {% endfor %}
+
+
+
+
+              {% for i in ktb %}
+      <div style="border: dashed 2px green; width: 300px;display: inline-block; background-color: lightgreen;" dir="rtl">
+              <h5>*طلبات مقبوله من الادمن ولها طلب كفاله بانتظار موافقه الادمن عليه*</h5>
+              <h3>عنوان الطلب:{{ i.title | safe }} </h3>
+              <h3>تفاصيل الطلب:{{ i.info | safe }}</h3>
+              <h3> اسم طالب الكفاله: {{ i.req_spon | safe }}</h3>
+              <h3> رقم هاتف طالب الكفاله: {{ i.sNumberReq | safe }}</h3>
+              <h3><button onclick="window.location.href='adminA/{{i.id | safe}}'"> قبول طلب الكفاله </button></h3>
+              <h3><button onclick="window.location.href='adminb/{{i.id | safe}}'">رفض طلب الكفاله </button></h3>
+      </div>
+              {% endfor %}
+
+
+
+
+              {% for i in ktc %}
+      <div style="border: dashed 2px green; width: 300px;display: inline-block; background-color: lightgreen;" dir="rtl">
+              <h5>*طلبات مقبوله من الادمن ولها كفيل*</h5>
+              <h3>عنوان الطلب:{{ i.title | safe }} </h3>
+              <h3>تفاصيل الطلب:{{ i.info | safe }}</h3>
+              <h3> الكفيل: {{ i.sponser | safe }}</h3>
+              <h3> رقم هاتف الكفيل: {{ i.sNumber | safe }}</h3>
+              <h3><button onclick="window.location.href='admind/{{i.id | safe}}'"> حذف الكفيل  </button></h3>
+      </div>
+              {% endfor %}
+
+
+
+
+
+
+
+</body>
+</html>
